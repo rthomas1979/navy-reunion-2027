@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Navy Reunion 2027 · Ogden, Utah</title>
+  <meta name="description" content="Trip info, schedule, activities, sign-ups, shirt sizes and photos for our family's Navy Reunion, June 14–18, 2027 in Ogden, Utah.">
+  <meta name="theme-color" content="#0b2545">
+
+  <!-- Fonts from Google Fonts. If you're offline the page falls back to Georgia / system fonts. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Browser-tab icon: a small gold anchor drawn in SVG -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b2545'/%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='5' stroke-linecap='round'%3E%3Ccircle cx='32' cy='13' r='5'/%3E%3Cpath d='M32 18v34M20 28h24M12 38c2 10 10 15 20 15s18-5 20-15'/%3E%3C/g%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- ============================================================
+       SVG ICON LIBRARY
+       These little drawings are defined once here and reused all over
+       the page with <svg><use href="#icon-anchor"></use></svg>.
+       ============================================================ -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-anchor" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="32" cy="10" r="5"/>
+        <path d="M32 15v40"/>
+        <path d="M20 25h24"/>
+        <path d="M8 36c2 12 12 19 24 19s22-7 24-19"/>
+        <path d="M4 40l4-6 6 4M60 40l-4-6-6 4"/>
+      </g>
+    </symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7.2L12 17.6 5.7 21.4l1.7-7.2L2 9.5l7.1-.6z"/>
+    </symbol>
+    <symbol id="icon-wheel" viewBox="0 0 64 64">
+      <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round">
+        <circle cx="32" cy="32" r="16"/>
+        <circle cx="32" cy="32" r="5"/>
+        <path d="M32 4v12M32 48v12M4 32h12M48 32h12M12 12l8.5 8.5M43.5 43.5L52 52M52 12l-8.5 8.5M20.5 43.5L12 52"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <!-- "Skip to content" link for keyboard and screen-reader users -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- ============================================================
+       STICKY TOP NAVIGATION
+       On phones the links fold into a "Menu" button.
+       ============================================================ -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Main">
+      <a class="nav-brand" href="#home">
+        <svg class="icon" aria-hidden="true"><use href="#icon-anchor"></use></svg>
+        <span>Navy Reunion <strong>2027</strong></span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        Menu
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#hotel">Hotel</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#signups">Sign-Ups</a></li>
+        <li><a href="#shirts">Shirts</a></li>
+        <li><a href="#photos">Photos</a></li>
+        <li><a href="#contacts">Contacts &amp; FAQ</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================================================
+         1. HERO (big welcome banner with photo + countdown)
+         The background photo is set in DATA.heroImage in script.js.
+         ============================================================ -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-bg" role="img" id="hero-bg" aria-label="Sandy beach and calm blue water at Willard Bay State Park, framed by tall green trees"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">
+          <svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg>
+          Annual Family Navy Reunion
+          <svg class="icon" aria-hidden="true"><use href="#icon-star"></use></svg>
+        </p>
+        <h1 id="hero-title" data-fill="heroTitle">Navy Reunion 2027 · Ogden, Utah</h1>
+        <p class="hero-dates" data-fill="datesText">June 14–18, 2027</p>
+        <p class="hero-welcome" data-fill="welcome"></p>
+
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-label">Days</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-label">Hours</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-label">Minutes</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-label">Seconds</span></div>
+        </div>
+        <p class="countdown-caption" id="countdown-caption">until we gather in Ogden</p>
+
+        <a class="btn btn-gold btn-lg" href="#schedule">See the Schedule</a>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         2. QUICK INFO CARDS (filled in by script.js)
+         ============================================================ -->
+    <section class="section section-tight" id="info" aria-label="Quick info">
+      <div class="container">
+        <div class="quick-grid" id="quick-cards"></div>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         3. HOTEL
+         ============================================================ -->
+    <section class="section" id="hotel" aria-labelledby="hotel-title">
+      <div class="container">
+        <h2 class="section-title" id="hotel-title">Our Hotel</h2>
+        <div id="hotel-content"></div>
+
+        <!-- Room Finder: families post their room number after check-in -->
+        <h3 class="sub-title" id="rooms">🔑 Room Finder: Who's in Which Room</h3>
+        <p class="section-intro" style="text-align:left;margin-left:0">Checked in? Add your room number so everyone can find you.</p>
+        <p class="mode-banner" data-mode-banner style="text-align:left;margin-left:0"></p>
+        <div class="two-col">
+          <form class="card form" id="room-form" novalidate>
+            <div class="form-row">
+              <label for="rm-family">Family name</label>
+              <input type="text" id="rm-family" name="family" autocomplete="family-name" placeholder="e.g. The Thomas Family" required>
+            </div>
+            <div class="form-row form-row-split">
+              <div>
+                <label for="rm-room">Room number</label>
+                <input type="text" id="rm-room" name="room" inputmode="numeric" placeholder="e.g. 214" maxlength="10" required>
+              </div>
+              <div>
+                <label for="rm-arrival">Arrived</label>
+                <select id="rm-arrival" name="arrival"></select>
+              </div>
+            </div>
+            <p class="form-error" id="room-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-navy btn-lg">Add my room</button>
+            <p class="form-success" id="room-success" role="status" hidden></p>
+          </form>
+
+          <div class="card">
+            <h3 class="card-title">Room List</h3>
+            <div id="room-list"></div>
+            <button type="button" class="btn-link" data-reset="rooms" hidden>Reset to sample data</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         4. DAY-BY-DAY SCHEDULE
+         ============================================================ -->
+    <section class="section section-alt" id="schedule" aria-labelledby="schedule-title">
+      <div class="container">
+        <h2 class="section-title" id="schedule-title">Day-by-Day Schedule</h2>
+        <div class="every-day" id="every-day"></div>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         5. OPTIONAL ACTIVITIES
+         ============================================================ -->
+    <section class="section" id="activities" aria-labelledby="activities-title">
+      <div class="container">
+        <h2 class="section-title" id="activities-title">Optional Activities</h2>
+        <p class="section-intro">For our open days (Tuesday 6/15 and Thursday 6/17). Pick what sounds fun, then add your family on the <a href="#signups">sign-up board</a> so others can join you.</p>
+        <p class="note" data-fill="driveNote"></p>
+
+        <div class="filter-bar" role="group" aria-label="Filter activities by drive time">
+          <span class="filter-label" id="filter-label">Drive time:</span>
+          <button type="button" class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+          <button type="button" class="chip" data-filter="under30" aria-pressed="false">Under 30 min</button>
+          <button type="button" class="chip" data-filter="30to60" aria-pressed="false">30–60 min</button>
+          <button type="button" class="chip" data-filter="over60" aria-pressed="false">1 hr +</button>
+          <label class="sort-label">Sort:
+            <select id="activity-sort">
+              <option value="near">Closest first</option>
+              <option value="far">Farthest first</option>
+              <option value="az">A to Z</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="activity-grid" id="activity-grid"></div>
+        <p class="empty-msg" id="activity-empty" hidden>No activities match that filter.</p>
+
+        <!-- Sample day plans for the open days (filled in from DATA.dayPlans) -->
+        <div class="combo" id="day-plans">
+          <h3>🗺️ Not Sure What to Do? Sample Day Plans</h3>
+          <p id="day-plans-intro"></p>
+          <div class="plan-grid" id="day-plans-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         6. ACTIVITY SIGN-UPS ("Who's Doing What")
+         ============================================================ -->
+    <section class="section section-alt" id="signups" aria-labelledby="signups-title">
+      <div class="container">
+        <h2 class="section-title" id="signups-title">Who's Doing What</h2>
+        <p class="section-intro">Add your family to any activities you're interested in. Everyone can see the board below and plan to carpool or meet up.</p>
+        <p class="mode-banner" data-mode-banner></p>
+
+        <form class="card form" id="signup-form" novalidate>
+          <div class="form-row">
+            <label for="su-family">Family name</label>
+            <input type="text" id="su-family" name="family" autocomplete="family-name" placeholder="e.g. The Thomas Family" required>
+          </div>
+          <div class="form-row form-row-split">
+            <div>
+              <label for="su-adults"># of adults</label>
+              <input type="number" id="su-adults" name="adults" min="0" max="30" value="2" inputmode="numeric" required>
+            </div>
+            <div>
+              <label for="su-kids"># of kids</label>
+              <input type="number" id="su-kids" name="kids" min="0" max="30" value="0" inputmode="numeric" required>
+            </div>
+          </div>
+          <fieldset class="form-row">
+            <legend>Which activities? (check all that apply)</legend>
+            <div class="check-grid" id="su-activities"></div>
+          </fieldset>
+          <fieldset class="form-row">
+            <legend>Preferred day</legend>
+            <div class="radio-row">
+              <label class="radio"><input type="radio" name="day" value="Tue 6/15" checked> Tue 6/15</label>
+              <label class="radio"><input type="radio" name="day" value="Thu 6/17"> Thu 6/17</label>
+              <label class="radio"><input type="radio" name="day" value="Either day"> Either day</label>
+            </div>
+          </fieldset>
+          <p class="form-error" id="signup-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-navy btn-lg">Add us to the board</button>
+          <p class="form-success" id="signup-success" role="status" hidden></p>
+        </form>
+
+        <h3 class="sub-title">The Board</h3>
+        <div class="board" id="signup-board"></div>
+        <button type="button" class="btn-link" data-reset="signups" hidden>Reset board to sample data</button>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         7. SHIRT SIZES
+         ============================================================ -->
+    <section class="section" id="shirts" aria-labelledby="shirts-title">
+      <div class="container">
+        <h2 class="section-title" id="shirts-title">Reunion Shirts</h2>
+        <p class="section-intro" data-fill="shirtIntro"></p>
+        <p class="deadline"><strong>Order deadline:</strong> <span data-fill="shirtDeadline">TBD</span></p>
+        <p class="mode-banner" data-mode-banner></p>
+
+        <div class="two-col">
+          <form class="card form" id="shirt-form" novalidate>
+            <div class="form-row">
+              <label for="sh-family">Family name</label>
+              <input type="text" id="sh-family" name="family" autocomplete="family-name" placeholder="e.g. The Talmadge Family" required>
+            </div>
+            <div id="shirt-people" class="shirt-people"></div>
+            <button type="button" class="btn btn-outline" id="add-person">+ Add a person</button>
+            <p class="form-error" id="shirt-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-navy btn-lg">Submit shirt sizes</button>
+            <p class="form-success" id="shirt-success" role="status" hidden></p>
+          </form>
+
+          <div class="card">
+            <h3 class="card-title">Running Count for the Order</h3>
+            <div id="shirt-tally"></div>
+            <details class="shirt-list">
+              <summary>See everyone's sizes</summary>
+              <div id="shirt-list"></div>
+            </details>
+            <button type="button" class="btn-link" data-reset="shirts" hidden>Reset to sample data</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         8. PHOTOS
+         ============================================================ -->
+    <section class="section section-alt" id="photos" aria-labelledby="photos-title">
+      <div class="container">
+        <h2 class="section-title" id="photos-title">Photos</h2>
+        <p class="section-intro">Share your pictures! Tap an album to view it or add your own photos.</p>
+        <div class="album-grid" id="album-grid"></div>
+
+        <div class="card how-to">
+          <h3 class="card-title">How to add photos from your phone</h3>
+          <ol class="steps" id="upload-steps"></ol>
+        </div>
+
+        <h3 class="sub-title">Scouting Trip Photos</h3>
+        <p class="section-intro">Rebecca scouted Ogden in October 2026. Here's a sneak peek. Tap any photo to see it bigger.</p>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <div class="rope-divider" aria-hidden="true"><svg class="icon"><use href="#icon-anchor"></use></svg></div>
+
+    <!-- ============================================================
+         9. CONTACTS & FAQ
+         ============================================================ -->
+    <section class="section" id="contacts" aria-labelledby="contacts-title">
+      <div class="container">
+        <h2 class="section-title" id="contacts-title">Contacts &amp; FAQ</h2>
+        <h3 class="sub-title">Organizers</h3>
+        <div class="contact-grid" id="contact-grid"></div>
+
+        <h3 class="sub-title">Frequently Asked Questions</h3>
+        <div class="faq" id="faq"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================
+       10. FOOTER
+       ============================================================ -->
+  <footer class="site-footer">
+    <svg class="icon footer-anchor" aria-hidden="true"><use href="#icon-anchor"></use></svg>
+    <p class="footer-motto">Fair winds and following seas</p>
+    <p class="footer-name">Navy Reunion 2027</p>
+  </footer>
+
+  <!-- "Back to top" button (appears after you scroll down) -->
+  <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
+    <span aria-hidden="true">↑</span> Top
+  </a>
+
+  <!-- Lightbox: the full-screen photo viewer used by the gallery -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button type="button" class="lb-btn lb-close" id="lb-close" aria-label="Close photo">✕</button>
+    <button type="button" class="lb-btn lb-prev" id="lb-prev" aria-label="Previous photo">‹</button>
+    <figure class="lb-figure">
+      <img id="lb-img" src="" alt="">
+      <figcaption id="lb-caption"></figcaption>
+    </figure>
+    <button type="button" class="lb-btn lb-next" id="lb-next" aria-label="Next photo">›</button>
+  </div>
+
+  <noscript>
+    <p class="noscript">This page needs JavaScript turned on to show the schedule, activities and sign-ups.</p>
+  </noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
