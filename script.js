@@ -34,20 +34,32 @@
    PART 1. SHARED SIGN-UPS (GOOGLE FORM + GOOGLE SHEET)
    =====================================================================
 
-   RIGHT NOW (enabled: false) the sign-up board, shirt sizes and Room
-   Finder are saved in each visitor's own browser (localStorage). That's
-   fine for a preview, but other people WON'T see your entries.
+   RIGHT NOW (enabled: false) every form on the site (Who's Coming,
+   Lake Day and Dinner headcounts, activity sign-ups, shirt sizes and
+   the Room Finder) saves only in each visitor's own browser
+   (localStorage). That's fine for a preview, but other people WON'T
+   see your entries.
 
-   TO MAKE THEM SHARED (about 20 minutes, free):
+   TO MAKE THEM SHARED (about 30 minutes, free):
 
-   1. Go to forms.google.com and make one Google Form per list:
-        "Activity Sign-Ups" with short-answer questions in THIS order:
-            Family name, Adults, Kids, Activities, Day
-        "Shirt Sizes": Family name, Person, Adult or Youth, Size
-        "Room Finder": Family name, Room, Arrived
+   1. Go to forms.google.com and make one Google Form per list, with
+      short-answer questions in EXACTLY this order:
+        "Who's Coming":           Family name, Generation 1, Generation 2,
+                                  Generation 3, Entry ID
+        "Lake Day Headcount":     Family name, Adults, Kids, Entry ID
+        "Group Dinner Headcount": Family name, Adults, Kids, Entry ID
+        "Activity Sign-Ups":      Family name, Adults, Kids, Activities,
+                                  Day, Entry ID
+        "Shirt Sizes":            Family name, Person, Adult or Youth, Size
+        "Room Finder":            Family name, Room, Arrived, Entry ID
       Make all of them "Short answer" questions, even Activities. The
       site sends the activities as one line, for example
       "Hill Aerospace Museum, Barefoot Tubing".
+
+      "Entry ID" is filled in automatically by the site (visitors never
+      see it). It lets a family UPDATE their own entry by submitting
+      again, without ever replacing another family's entry, even when
+      two families share a last name or use the same phone.
 
    2. In each form: Responses tab → green Sheets icon → "Create a new
       spreadsheet".
@@ -74,6 +86,41 @@
 const SHARED_SHEETS = {
   enabled: false,   // ← change to true once the URLs below are filled in
 
+  rsvp: {
+    formUrl: 'https://docs.google.com/forms/d/e/PASTE_RSVP_FORM_ID/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_RSVP_SHEET_ID/pub?output=csv',
+    // Keep these in the same order as the questions in your form.
+    fields: {
+      family:  'entry.4000000001',
+      gen1:    'entry.4000000002',
+      gen2:    'entry.4000000003',
+      gen3:    'entry.4000000004',
+      entryId: 'entry.4000000005',
+    },
+  },
+
+  lakeDay: {
+    formUrl: 'https://docs.google.com/forms/d/e/PASTE_LAKE_FORM_ID/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_LAKE_SHEET_ID/pub?output=csv',
+    fields: {
+      family:  'entry.5000000001',
+      adults:  'entry.5000000002',
+      kids:    'entry.5000000003',
+      entryId: 'entry.5000000004',
+    },
+  },
+
+  dinner: {
+    formUrl: 'https://docs.google.com/forms/d/e/PASTE_DINNER_FORM_ID/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_DINNER_SHEET_ID/pub?output=csv',
+    fields: {
+      family:  'entry.6000000001',
+      adults:  'entry.6000000002',
+      kids:    'entry.6000000003',
+      entryId: 'entry.6000000004',
+    },
+  },
+
   signups: {
     formUrl: 'https://docs.google.com/forms/d/e/PASTE_SIGNUP_FORM_ID/formResponse',
     csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_SIGNUP_SHEET_ID/pub?output=csv',
@@ -84,6 +131,7 @@ const SHARED_SHEETS = {
       kids:       'entry.1000000003',
       activities: 'entry.1000000004',
       day:        'entry.1000000005',
+      entryId:    'entry.1000000006',
     },
   },
 
@@ -105,6 +153,7 @@ const SHARED_SHEETS = {
       family:  'entry.3000000001',
       room:    'entry.3000000002',
       arrival: 'entry.3000000003',
+      entryId: 'entry.3000000004',
     },
   },
 };
@@ -140,6 +189,17 @@ const DATA = {
     { emoji: '📸', label: 'Photo Upload', detail: 'Share your pictures',         href: '#photos' },
   ],
 
+  /* ---------- Who's Coming (reunion RSVP near the top) ----------
+     One counter per generation. Change the labels or hints freely.
+     To add a 4th generation: add { key: 'gen4', ... } here AND a
+     "Generation 4" question + gen4 field in SHARED_SHEETS.rsvp. */
+  whosComingIntro: 'Let us know who\'s coming! Enter how many people from your family are in each generation. Submit again any time to update your numbers.',
+  generations: [
+    { key: 'gen1', label: 'Generation 1', hint: 'Grandparents' },
+    { key: 'gen2', label: 'Generation 2', hint: 'Their children & spouses' },
+    { key: 'gen3', label: 'Generation 3', hint: 'Grandkids' },
+  ],
+
   /* ---------- Hotel ---------- */
   hotel: {
     name: 'Best Western Plus High Country Inn',
@@ -166,6 +226,20 @@ const DATA = {
       text:  "We've reserved the hotel's back garden area as our family home base all week. Stop by any time to visit, and join us every evening around the fire.",
     },
   },
+
+  /* ---------- Photo strips in the Hotel section and on Lake Day ----------
+     To use a new photo: put it in the /images folder, then change "file"
+     to its name (and update the alt text and caption). Tap = full size. */
+  hotelPhotos: [
+    { file: '20261023_171344.jpg', alt: 'Exterior of the Best Western Plus High Country Inn with stone pillars and a green lawn', caption: 'Best Western Plus High Country Inn' },
+    { file: '20261023_171333.jpg', alt: 'Curving sidewalk through the hotel\'s landscaped back garden under a big cloudy sky', caption: 'The back garden: our home base' },
+    { file: '20261024_102510.jpg', alt: 'Small cabin with Adirondack chairs, barrels and string lights beside a sandy area under a blue sky', caption: 'Garden gathering area' },
+  ],
+  lakeDayPhotos: [
+    { file: '20261024_104116.jpg', alt: 'Covered Eagle Beach group pavilion with picnic tables at Willard Bay; a sign says by reservation only', caption: 'Eagle Beach group pavilion' },
+    { file: '20261024_104404.jpg', alt: 'Covered picnic shelter with charcoal grills and tables at Willard Bay', caption: 'Picnic shelter with grills' },
+    { file: '20261024_104743.jpg', alt: 'Calm, clear water lapping the sandy shoreline of Willard Bay with mountains far across the lake', caption: 'The beach at Willard Bay' },
+  ],
 
   /* ---------- Places that aren't activity cards ----------
      name = what shows on the link, url = official website,
@@ -220,6 +294,7 @@ const DATA = {
       ],
       buttons: ['willardBay', 'clubRec'],
       lakeDayExtras: true,
+      headcount: { list: 'lakeDay', title: '🏖️ Who\'s coming to Lake Day?', note: 'Helps us plan the group meal. Submit again any time to update your numbers.' },
     },
     {
       id: 'day-thu', date: 'Thursday, June 17', title: "Open Day + Group Dinner at {jeremiahs}",
@@ -233,6 +308,7 @@ const DATA = {
         'Evening fire in the back garden.',
       ],
       buttons: ['jeremiahs'],
+      headcount: { list: 'dinner', title: '🍽️ Who\'s coming to the Group Dinner?', note: 'Helps us reserve enough seats. Submit again any time to update your numbers.' },
     },
     {
       id: 'day-fri', date: 'Friday, June 18', title: 'Farewells',
@@ -431,6 +507,9 @@ const DATA = {
   /* ---------- Room Finder: choices for "Arrived" ---------- */
   roomArrivalDays: ['Sun 6/13', 'Mon 6/14', 'Tue 6/15', 'Wed 6/16', 'Thu 6/17'],
   roomArrivalDefault: 'Mon 6/14',
+  // Room Finder is hidden until closer to the reunion. Change to true to open it.
+  roomFinderOpen: false,
+  roomFinderClosedText: '🔑 The Room Finder opens closer to the reunion. Once you\'ve checked in, you\'ll post your room number here so everyone can find you.',
   shirtSizes: {
     Youth: ['XS', 'S', 'M', 'L', 'XL'],
     Adult: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'],
@@ -539,6 +618,21 @@ const SAMPLE_ENTRIES = {
     { family: 'The Garcia Family',  room: '118', arrival: 'Mon 6/14', sample: true },
     { family: 'The Johnson Family', room: '204', arrival: 'Sun 6/13', sample: true },
   ],
+  rsvp: [
+    { family: 'The Miller Family',  gen1: 0, gen2: 2, gen3: 2, sample: true },
+    { family: 'The Garcia Family',  gen1: 0, gen2: 2, gen3: 3, sample: true },
+    { family: 'The Johnson Family', gen1: 2, gen2: 2, gen3: 0, sample: true },
+    { family: 'The Brooks Family',  gen1: 0, gen2: 2, gen3: 1, sample: true },
+  ],
+  lakeDay: [
+    { family: 'The Miller Family',  adults: 2, kids: 2, sample: true },
+    { family: 'The Johnson Family', adults: 4, kids: 0, sample: true },
+  ],
+  dinner: [
+    { family: 'The Miller Family',  adults: 2, kids: 2, sample: true },
+    { family: 'The Garcia Family',  adults: 2, kids: 3, sample: true },
+    { family: 'The Johnson Family', adults: 4, kids: 0, sample: true },
+  ],
 };
 
 
@@ -611,7 +705,40 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
    on SHARED_SHEETS.enabled.
    ===================================================================== */
 const STORAGE_PREFIX = 'navyReunion2027.';
-const lists = { signups: [], shirts: [], rooms: [] };
+const lists = { rsvp: [], lakeDay: [], dinner: [], signups: [], shirts: [], rooms: [] };
+
+// Lists where submitting again UPDATES your earlier entry instead of
+// adding a second one. (Shirts add people, so they're not on this list.)
+const UPDATE_LISTS = ['rsvp', 'lakeDay', 'dinner', 'signups', 'rooms'];
+
+// Fields that hold numbers (everything else is text)
+const NUMBER_FIELDS = ['adults', 'kids', 'gen1', 'gen2', 'gen3', 'gen4', 'gen5'];
+
+/* HOW "UPDATE MY ENTRY" WORKS WITHOUT OVERWRITING ANYONE ELSE
+   Each phone/computer gets a random secret code the first time it uses
+   the site. An entry's ID = that code + the family name. Submitting
+   again from the same device with the same family name replaces that
+   entry. Another family can't produce the same ID, even with the same
+   last name or on the same shared tablet, because either the device
+   code or the family name will differ. Worst case (same family, two
+   different phones) you get two entries, and an organizer can delete
+   the extra row in the Google Sheet. */
+function deviceCode() {
+  let code = readLocal('deviceCode');
+  if (!code) {
+    code = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+    writeLocal('deviceCode', code);
+  }
+  return code;
+}
+const entryIdFor = (family) => deviceCode() + ':' + family.trim().toLowerCase().replace(/\s+/g, ' ');
+
+// Keeps only the LAST entry for each entry ID (entries without one are all kept)
+function keepLatest(records) {
+  const lastIndex = new Map();
+  records.forEach((r, i) => { if (r.entryId) lastIndex.set(r.entryId, i); });
+  return records.filter((r, i) => !r.entryId || lastIndex.get(r.entryId) === i);
+}
 
 function readLocal(name) {
   try {
@@ -652,10 +779,11 @@ function parseCsv(text) {
 function rowToRecord(name, row) {
   const keys = Object.keys(SHARED_SHEETS[name].fields);
   const record = {};
-  keys.forEach((key, i) => { record[key] = (row[i + 1] || '').trim(); });
+  keys.forEach((key, i) => {
+    const value = (row[i + 1] || '').trim();
+    record[key] = NUMBER_FIELDS.includes(key) ? (parseInt(value, 10) || 0) : value;
+  });
   if (name === 'signups') {
-    record.adults = parseInt(record.adults, 10) || 0;
-    record.kids = parseInt(record.kids, 10) || 0;
     // Activity names → ids
     record.activities = record.activities.split(',')
       .map((n) => DATA.activities.find((a) => a.name.toLowerCase() === n.trim().toLowerCase()))
@@ -670,7 +798,7 @@ async function loadList(name) {
       const response = await fetch(SHARED_SHEETS[name].csvUrl, { cache: 'no-store' });
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const rows = parseCsv(await response.text()).slice(1); // skip header row
-      lists[name] = rows.filter((r) => r.some((c) => c.trim())).map((r) => rowToRecord(name, r));
+      lists[name] = keepLatest(rows.filter((r) => r.some((c) => c.trim())).map((r) => rowToRecord(name, r)));
       return;
     } catch (err) {
       console.warn(`Could not load the shared "${name}" sheet. Check csvUrl in SHARED_SHEETS.`, err);
@@ -697,12 +825,22 @@ async function postToForm(name, record) {
   await fetch(config.formUrl, { method: 'POST', mode: 'no-cors', body });
 }
 
+// Saves new entries. Returns true if it UPDATED an earlier entry.
 async function addRecords(name, records) {
+  let updated = false;
+  if (UPDATE_LISTS.includes(name)) {
+    records.forEach((r) => { r.entryId = entryIdFor(r.family); });
+    const ids = new Set(records.map((r) => r.entryId));
+    const before = lists[name].length;
+    lists[name] = lists[name].filter((r) => !ids.has(r.entryId));
+    updated = lists[name].length < before;
+  }
   if (SHARED_SHEETS.enabled) {
     for (const record of records) await postToForm(name, record);
   }
   lists[name].push(...records);
   if (!SHARED_SHEETS.enabled) writeLocal(name, lists[name]);
+  return updated;
 }
 
 function resetToSamples(name) {
@@ -790,7 +928,22 @@ function renderHotel() {
         <h3>${esc(h.homeBase.title)}</h3>
         <p>${esc(h.homeBase.text)}</p>
       </div>
-    </div>`;
+    </div>
+    ${photoStrip('hotel')}`;
+}
+
+// Photo lists by name (used by the photo strips and the full-size viewer)
+function photoSet(name) {
+  return { gallery: DATA.gallery, hotel: DATA.hotelPhotos, lakeDay: DATA.lakeDayPhotos }[name] || [];
+}
+
+// A row of tappable photos
+function photoStrip(name) {
+  return `<div class="photo-strip">${photoSet(name).map((p, i) => `
+    <button type="button" class="gallery-item" data-set="${name}" data-index="${i}" aria-label="Enlarge photo: ${esc(p.caption)}">
+      <img src="images/${esc(p.file)}" alt="${esc(p.alt)}" loading="lazy" width="400" height="300">
+      <span class="photo-caption">${esc(p.caption)}</span>
+    </button>`).join('')}</div>`;
 }
 
 // 4. Schedule timeline
@@ -805,7 +958,8 @@ function renderSchedule() {
       const p = findPlace(id);
       return placeButtons(p, { websiteLabel: p.name });
     }).join('')}</div>` : '';
-    const extras = day.lakeDayExtras ? lakeDayExtrasHtml() : '';
+    let extras = day.lakeDayExtras ? photoStrip('lakeDay') + lakeDayExtrasHtml() : '';
+    if (day.headcount) extras += `<div class="headcount" data-headcount="${esc(day.headcount.list)}"></div>`;
     return `
       <li class="timeline-item" id="${esc(day.id)}">
         <span class="timeline-dot" aria-hidden="true"><svg class="icon"><use href="${day.group ? '#icon-star' : '#icon-anchor'}"></use></svg></span>
@@ -995,10 +1149,12 @@ function setupSignupForm() {
     }
     error.hidden = true;
 
-    await addRecords('signups', [{ family, adults, kids, activities, day }]);
+    const updated = await addRecords('signups', [{ family, adults, kids, activities, day }]);
     renderBoard();
     form.reset();
-    success.textContent = `Thanks, ${family}! You're on the board below.`;
+    success.textContent = updated
+      ? `Updated! ${family}'s sign-up now shows your latest choices.`
+      : `Thanks, ${family}! You're on the board below.`;
     success.hidden = false;
     $('#signup-board').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
@@ -1103,8 +1259,122 @@ function renderShirtTally() {
     : '<p>No sizes yet.</p>';
 }
 
+/* Headcounts: "Who's Coming" (by generation) at the top, plus separate
+   Lake Day and Group Dinner headcounts (adults/kids) in the schedule.
+   Each one is a small form, running totals, and a list of families. */
+function headcountColumns(list) {
+  return list === 'rsvp'
+    ? DATA.generations
+    : [{ key: 'adults', label: 'Adults' }, { key: 'kids', label: 'Kids' }];
+}
+
+function headcountSettings(list) {
+  if (list === 'rsvp') return { note: DATA.whosComingIntro, button: "We're coming!" };
+  const day = DATA.schedule.find((d) => d.headcount && d.headcount.list === list);
+  return { ...(day ? day.headcount : {}), button: 'Count us in' };
+}
+
+function mountHeadcount(box) {
+  const list = box.dataset.headcount;
+  const cols = headcountColumns(list);
+  const s = headcountSettings(list);
+  const id = 'hc-' + list;
+  const isMain = box.classList.contains('headcount-main');
+
+  const formHtml = `
+    <form class="hc-form${isMain ? ' card form' : ''}" novalidate>
+      <div class="form-row">
+        <label for="${id}-family">Family name</label>
+        <input type="text" id="${id}-family" autocomplete="family-name" placeholder="e.g. The Thomas Family" required>
+      </div>
+      <div class="hc-counts">
+        ${cols.map((c) => `
+          <div>
+            <label for="${id}-${c.key}">${esc(c.label)}${c.hint ? `<small>${esc(c.hint)}</small>` : ''}</label>
+            <input type="number" id="${id}-${c.key}" data-key="${esc(c.key)}" min="0" max="50" value="0" inputmode="numeric">
+          </div>`).join('')}
+      </div>
+      <p class="form-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-navy btn-lg">${esc(s.button)}</button>
+      <p class="form-success" role="status" hidden></p>
+      <p class="hc-hint">Plans changed? Submit again with the same family name to update your numbers.</p>
+    </form>`;
+
+  const summaryHtml = `
+    <div class="${isMain ? 'card ' : ''}hc-summary">
+      <div class="hc-totals" data-totals></div>
+      ${isMain
+        ? '<div data-list></div>'
+        : '<details class="hc-list"><summary>See who\'s coming</summary><div data-list></div></details>'}
+      <button type="button" class="btn-link" data-reset="${esc(list)}" ${SHARED_SHEETS.enabled ? 'hidden' : ''}>Reset to sample data</button>
+    </div>`;
+
+  box.innerHTML = `
+    ${s.title ? `<h4>${esc(s.title)}</h4>` : ''}
+    ${s.note ? `<p class="hc-note">${esc(s.note)}</p>` : ''}
+    <div class="${isMain ? 'two-col' : 'hc-stack'}">${formHtml}${summaryHtml}</div>`;
+
+  const form = box.querySelector('form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const error = form.querySelector('.form-error');
+    const success = form.querySelector('.form-success');
+    const family = form.querySelector(`#${id}-family`).value.trim();
+    if (!family) {
+      error.textContent = 'Please enter your family name.';
+      error.hidden = false; success.hidden = true;
+      return;
+    }
+    error.hidden = true;
+    const record = { family };
+    form.querySelectorAll('[data-key]').forEach((input) => {
+      record[input.dataset.key] = Math.max(0, parseInt(input.value, 10) || 0);
+    });
+    const total = cols.reduce((sum, c) => sum + record[c.key], 0);
+    const updated = await addRecords(list, [record]);
+    renderHeadcount(list);
+    form.reset();
+    success.textContent = total === 0
+      ? `Got it. We've marked ${family} as not coming. Sorry we'll miss you!`
+      : `${updated ? 'Updated' : 'Thanks'}, ${family}! ${plural(total, 'person')} counted.`.replace('persons', 'people');
+    success.hidden = false;
+  });
+}
+
+function renderHeadcount(list) {
+  const box = document.querySelector(`[data-headcount="${list}"]`);
+  if (!box) return;
+  const cols = headcountColumns(list);
+  const entries = lists[list];
+  const totalOf = (r) => cols.reduce((sum, c) => sum + (Number(r[c.key]) || 0), 0);
+  const coming = entries.filter((r) => totalOf(r) > 0);
+  const sums = cols.map((c) => entries.reduce((sum, r) => sum + (Number(r[c.key]) || 0), 0));
+  const grand = sums.reduce((a, b) => a + b, 0);
+
+  box.querySelector('[data-totals]').innerHTML = `
+    <div class="hc-tile hc-tile-total"><span class="hc-num">${grand}</span><span class="hc-label">Total people</span></div>
+    ${cols.map((c, i) => `<div class="hc-tile"><span class="hc-num">${sums[i]}</span><span class="hc-label">${esc(c.label)}</span></div>`).join('')}
+    <div class="hc-tile"><span class="hc-num">${coming.length}</span><span class="hc-label">Families</span></div>`;
+
+  box.querySelector('[data-list]').innerHTML = coming.length
+    ? `<table class="count-table">
+        <thead><tr><th>Family</th>${cols.map((c) => `<th>${esc(c.label.replace('Generation ', 'Gen '))}</th>`).join('')}<th>Total</th></tr></thead>
+        <tbody>${coming.map((r) => `
+          <tr><td>${esc(r.family)}${sampleTag(r)}</td>${cols.map((c) => `<td>${Number(r[c.key]) || 0}</td>`).join('')}<td><strong>${totalOf(r)}</strong></td></tr>`).join('')}
+        </tbody>
+      </table>`
+    : '<p class="board-empty">No one yet. Be the first!</p>';
+}
+
 // Room Finder (in the Hotel section)
 function setupRoomForm() {
+  // Hidden until DATA.roomFinderOpen is changed to true
+  if (!DATA.roomFinderOpen) {
+    $('#room-finder').hidden = true;
+    $('#room-closed').textContent = DATA.roomFinderClosedText;
+    $('#room-closed').hidden = false;
+  }
+
   $('#rm-arrival').innerHTML = DATA.roomArrivalDays
     .map((d) => `<option${d === DATA.roomArrivalDefault ? ' selected' : ''}>${esc(d)}</option>`).join('');
 
@@ -1120,11 +1390,13 @@ function setupRoomForm() {
       return;
     }
     error.hidden = true;
-    await addRecords('rooms', [{ family, room, arrival: $('#rm-arrival').value }]);
+    const updated = await addRecords('rooms', [{ family, room, arrival: $('#rm-arrival').value }]);
     renderRooms();
     e.target.reset();
     $('#rm-arrival').value = DATA.roomArrivalDefault;
-    success.textContent = `Thanks, ${family}! You're in room ${room}.`;
+    success.textContent = updated
+      ? `Updated! ${family} is now listed in room ${room}.`
+      : `Thanks, ${family}! You're in room ${room}.`;
     success.hidden = false;
   });
 }
@@ -1164,7 +1436,7 @@ function renderPhotos() {
   $('#upload-steps').innerHTML = DATA.uploadSteps.map((s) => `<li>${s}</li>`).join('');
 
   $('#gallery').innerHTML = DATA.gallery.map((p, i) => `
-    <button type="button" class="gallery-item" data-index="${i}" aria-label="Enlarge photo: ${esc(p.caption)}">
+    <button type="button" class="gallery-item" data-set="gallery" data-index="${i}" aria-label="Enlarge photo: ${esc(p.caption)}">
       <img src="images/${esc(p.file)}" alt="${esc(p.alt)}" loading="lazy" width="400" height="300">
     </button>`).join('');
 }
@@ -1278,16 +1550,19 @@ function setupLightbox() {
   const img = $('#lb-img');
   const caption = $('#lb-caption');
   let current = 0;
+  let photos = DATA.gallery;   // which set of photos is being viewed
   let lastFocus = null;
 
   function show(i) {
-    current = (i + DATA.gallery.length) % DATA.gallery.length;
-    const p = DATA.gallery[current];
+    current = (i + photos.length) % photos.length;
+    const p = photos[current];
     img.src = 'images/' + p.file;
     img.alt = p.alt;
-    caption.textContent = `${p.caption}  (${current + 1} of ${DATA.gallery.length})`;
+    caption.textContent = photos.length > 1 ? `${p.caption}  (${current + 1} of ${photos.length})` : p.caption;
+    $('#lb-prev').hidden = $('#lb-next').hidden = photos.length < 2;
   }
-  function open(i) {
+  function open(set, i) {
+    photos = set;
     lastFocus = document.activeElement;
     show(i);
     box.hidden = false;
@@ -1300,9 +1575,10 @@ function setupLightbox() {
     if (lastFocus) lastFocus.focus();
   }
 
-  $('#gallery').addEventListener('click', (e) => {
-    const item = e.target.closest('.gallery-item');
-    if (item) open(Number(item.dataset.index));
+  // Any photo button on the page: data-set says which photo list, data-index which photo
+  document.addEventListener('click', (e) => {
+    const item = e.target.closest('[data-set][data-index]');
+    if (item) open(photoSet(item.dataset.set), Number(item.dataset.index));
   });
   $('#lb-close').addEventListener('click', close);
   $('#lb-prev').addEventListener('click', () => show(current - 1));
@@ -1345,6 +1621,7 @@ function setupResetButtons() {
     if (name === 'signups') renderBoard();
     if (name === 'shirts') renderShirtTally();
     if (name === 'rooms') renderRooms();
+    if (['rsvp', 'lakeDay', 'dinner'].includes(name)) renderHeadcount(name);
   });
 }
 
@@ -1368,15 +1645,17 @@ async function init() {
   setupSignupForm();
   setupShirtForm();
   setupRoomForm();
+  document.querySelectorAll('[data-headcount]').forEach(mountHeadcount);
   setupLightbox();
   setupResetButtons();
   startCountdown();
 
   // Load saved entries (from this device or the shared sheets), then draw the boards
-  await Promise.all([loadList('signups'), loadList('shirts'), loadList('rooms')]);
+  await Promise.all(Object.keys(lists).map(loadList));
   renderBoard();
   renderShirtTally();
   renderRooms();
+  ['rsvp', 'lakeDay', 'dinner'].forEach(renderHeadcount);
 }
 
 document.addEventListener('DOMContentLoaded', init);

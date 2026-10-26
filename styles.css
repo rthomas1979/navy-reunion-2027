@@ -120,7 +120,7 @@ a:hover { color: var(--red); }
 .nav-toggle-bars::before { top: -7px; }
 .nav-toggle-bars::after { top: 7px; }
 
-@media (max-width: 1040px) {
+@media (max-width: 1200px) {
   .nav-toggle { display: inline-flex; }
   .nav-links {
     display: none;
@@ -699,3 +699,51 @@ input[type="checkbox"], input[type="radio"] { width: 26px; height: 26px; accent-
   .timeline-dot { left: 0; width: 40px; height: 40px; }
   .day-card { padding: 16px; }
 }
+
+/* ==============================================================
+   HERO BUTTONS, HEADCOUNTS (Who's Coming / Lake Day / Dinner),
+   PHOTO STRIPS
+   ============================================================== */
+.hero-buttons { justify-content: center; }
+.btn-outline-light { background: transparent; color: var(--white); border-color: var(--white); }
+.btn-outline-light:hover { background: var(--white); color: var(--navy-deep); }
+
+.headcount { margin-top: 18px; }
+.headcount > h4 { font-family: var(--font-head); color: var(--navy); font-size: 1.35rem; margin: 0 0 4px; }
+.hc-note { margin: 0 0 14px; color: var(--ink-soft); }
+.headcount-main .hc-note { text-align: center; font-size: 1.2rem; max-width: 760px; margin: 0 auto 22px; }
+.hc-stack { display: grid; gap: 16px; }
+@media (min-width: 760px) { .hc-stack { grid-template-columns: 1fr 1fr; align-items: start; } }
+.day-card .hc-form, .day-card .hc-summary { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.hc-counts { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.hc-counts label { font-size: 1.05rem; }
+.hc-counts small { display: block; font-weight: 400; color: var(--ink-soft); font-size: .9rem; }
+.hc-hint { font-size: .95rem; color: var(--ink-soft); margin: 10px 0 0; }
+
+.hc-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.hc-tile { background: var(--paper-alt); border-radius: 10px; padding: 10px 6px; text-align: center; border-bottom: 3px solid var(--gold); }
+.hc-tile-total { background: var(--navy); color: var(--white); }
+.hc-num { display: block; font-family: var(--font-head); font-size: 2rem; font-weight: 700; line-height: 1.1; }
+.hc-label { display: block; font-size: .9rem; font-weight: 600; }
+.hc-tile-total .hc-label { color: var(--gold-pale); }
+.hc-list summary { cursor: pointer; font-weight: 700; color: var(--navy); min-height: 44px; display: flex; align-items: center; }
+
+.count-table { width: 100%; border-collapse: collapse; font-size: 1.05rem; }
+.count-table th, .count-table td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: center; }
+.count-table th:first-child, .count-table td:first-child { text-align: left; }
+.count-table th { color: var(--navy); font-size: .95rem; }
+
+.photo-strip { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-top: 20px; }
+.photo-strip .gallery-item { aspect-ratio: 4 / 3; }
+.photo-caption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 8px;
+  background: linear-gradient(transparent, rgba(7,26,51,.85)); color: var(--white);
+  font-weight: 600; font-size: .95rem; text-align: left;
+}
+
+/* Fit headcount tiles on one row; spread the checklist over two columns */
+.hc-totals { grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); }
+.hc-num { font-size: 1.7rem; }
+.hc-label { font-size: .85rem; }
+.day-extras { grid-template-columns: 1fr !important; }
+@media (min-width: 760px) { .bring-list { columns: 2; column-gap: 24px; } .bring-list li { break-inside: avoid; } }

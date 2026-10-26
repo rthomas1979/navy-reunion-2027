@@ -64,6 +64,7 @@
         Menu
       </button>
       <ul class="nav-links" id="nav-links">
+        <li><a href="#coming">Who's Coming</a></li>
         <li><a href="#hotel">Hotel</a></li>
         <li><a href="#schedule">Schedule</a></li>
         <li><a href="#activities">Activities</a></li>
@@ -101,7 +102,10 @@
         </div>
         <p class="countdown-caption" id="countdown-caption">until we gather in Ogden</p>
 
-        <a class="btn btn-gold btn-lg" href="#schedule">See the Schedule</a>
+        <div class="btn-row hero-buttons">
+          <a class="btn btn-gold btn-lg" href="#coming">✋ We're Coming!</a>
+          <a class="btn btn-outline-light btn-lg" href="#schedule">See the Schedule</a>
+        </div>
       </div>
     </section>
 
@@ -111,6 +115,17 @@
     <section class="section section-tight" id="info" aria-label="Quick info">
       <div class="container">
         <div class="quick-grid" id="quick-cards"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         WHO'S COMING (reunion headcount by generation)
+         ============================================================ -->
+    <section class="section section-alt" id="coming" aria-labelledby="coming-title">
+      <div class="container">
+        <h2 class="section-title" id="coming-title">Who's Coming</h2>
+        <p class="mode-banner" data-mode-banner></p>
+        <div class="headcount headcount-main" data-headcount="rsvp"></div>
       </div>
     </section>
 
@@ -126,6 +141,9 @@
 
         <!-- Room Finder: families post their room number after check-in -->
         <h3 class="sub-title" id="rooms">🔑 Room Finder: Who's in Which Room</h3>
+        <p class="note" id="room-closed" style="margin-left:0" hidden></p>
+        <!-- Shown once DATA.roomFinderOpen is true in script.js -->
+        <div id="room-finder">
         <p class="section-intro" style="text-align:left;margin-left:0">Checked in? Add your room number so everyone can find you.</p>
         <p class="mode-banner" data-mode-banner style="text-align:left;margin-left:0"></p>
         <div class="two-col">
@@ -155,6 +173,7 @@
             <button type="button" class="btn-link" data-reset="rooms" hidden>Reset to sample data</button>
           </div>
         </div>
+        </div><!-- /room-finder -->
       </div>
     </section>
 
