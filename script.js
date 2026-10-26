@@ -44,14 +44,14 @@
 
    1. Go to forms.google.com and make one Google Form per list, with
       short-answer questions in EXACTLY this order:
-        "Who's Coming":           Family name, Generation 1, Generation 2,
+        "Who's Coming":           Name (first & last), Generation 1, Generation 2,
                                   Generation 3, Entry ID
-        "Lake Day Headcount":     Family name, Adults, Kids, Entry ID
-        "Group Dinner Headcount": Family name, Adults, Kids, Entry ID
-        "Activity Sign-Ups":      Family name, Adults, Kids, Activities,
+        "Lake Day Headcount":     Name (first & last), Adults, Kids, Entry ID
+        "Group Dinner Headcount": Name (first & last), Adults, Kids, Entry ID
+        "Activity Sign-Ups":      Name (first & last), Adults, Kids, Activities,
                                   Day, Entry ID
-        "Shirt Sizes":            Family name, Person, Adult or Youth, Size
-        "Room Finder":            Family name, Room, Arrived, Entry ID
+        "Shirt Sizes":            Name (first & last), Person, Adult or Youth, Size
+        "Room Finder":            Name (first & last), Room, Arrived, Entry ID
       Make all of them "Short answer" questions, even Activities. The
       site sends the activities as one line, for example
       "Hill Aerospace Museum, Barefoot Tubing".
@@ -216,6 +216,8 @@ const DATA = {
       'Free parking, with room for large rigs like campers, RVs and trailers',
       'On-site dog park, so bring the pups',
     ],
+    roomPrice: 'About $149 + tax per night',
+    roomPriceNote: 'That\'s for a standard king room. Family rooms and suites may cost more.',
     rateCode: 'TBD',
     bookBy:   'TBD',
     // Replace with the group-booking link from the hotel when you have it.
@@ -598,40 +600,40 @@ const DATA = {
    ===================================================================== */
 const SAMPLE_ENTRIES = {
   signups: [
-    { family: 'The Miller Family',  adults: 2, kids: 2, activities: ['hill', 'snowbasin', 'heberRailroad'], day: 'Tue 6/15', sample: true },
-    { family: 'The Garcia Family',  adults: 2, kids: 3, activities: ['barefoot', 'olympic', 'willardBay'],   day: 'Tue 6/15', sample: true },
-    { family: 'The Johnson Family', adults: 4, kids: 0, activities: ['hill', 'heberRailroad', 'zipline'],    day: 'Thu 6/17', sample: true },
-    { family: 'The Brooks Family',  adults: 2, kids: 1, activities: ['antelope', 'slc', 'hill'],             day: 'Either day', sample: true },
+    { family: 'Dave Miller',  adults: 2, kids: 2, activities: ['hill', 'snowbasin', 'heberRailroad'], day: 'Tue 6/15', sample: true },
+    { family: 'Luis Garcia',  adults: 2, kids: 3, activities: ['barefoot', 'olympic', 'willardBay'],   day: 'Tue 6/15', sample: true },
+    { family: 'Ray Johnson', adults: 4, kids: 0, activities: ['hill', 'heberRailroad', 'zipline'],    day: 'Thu 6/17', sample: true },
+    { family: 'Tom Brooks',  adults: 2, kids: 1, activities: ['antelope', 'slc', 'hill'],             day: 'Either day', sample: true },
   ],
   shirts: [
-    { family: 'The Miller Family',  name: 'Dave',   type: 'Adult', size: 'XL', sample: true },
-    { family: 'The Miller Family',  name: 'Karen',  type: 'Adult', size: 'M',  sample: true },
-    { family: 'The Miller Family',  name: 'Emma',   type: 'Youth', size: 'M',  sample: true },
-    { family: 'The Miller Family',  name: 'Jack',   type: 'Youth', size: 'S',  sample: true },
-    { family: 'The Garcia Family',  name: 'Luis',   type: 'Adult', size: '2XL', sample: true },
-    { family: 'The Garcia Family',  name: 'Ana',    type: 'Adult', size: 'S',  sample: true },
-    { family: 'The Garcia Family',  name: 'Sofia',  type: 'Youth', size: 'L',  sample: true },
-    { family: 'The Johnson Family', name: 'Grandpa Ray', type: 'Adult', size: 'L', sample: true },
+    { family: 'Dave Miller',  name: 'Dave',   type: 'Adult', size: 'XL', sample: true },
+    { family: 'Dave Miller',  name: 'Karen',  type: 'Adult', size: 'M',  sample: true },
+    { family: 'Dave Miller',  name: 'Emma',   type: 'Youth', size: 'M',  sample: true },
+    { family: 'Dave Miller',  name: 'Jack',   type: 'Youth', size: 'S',  sample: true },
+    { family: 'Luis Garcia',  name: 'Luis',   type: 'Adult', size: '2XL', sample: true },
+    { family: 'Luis Garcia',  name: 'Ana',    type: 'Adult', size: 'S',  sample: true },
+    { family: 'Luis Garcia',  name: 'Sofia',  type: 'Youth', size: 'L',  sample: true },
+    { family: 'Ray Johnson', name: 'Ray', type: 'Adult', size: 'L', sample: true },
   ],
   rooms: [
-    { family: 'The Miller Family',  room: '112', arrival: 'Mon 6/14', sample: true },
-    { family: 'The Garcia Family',  room: '118', arrival: 'Mon 6/14', sample: true },
-    { family: 'The Johnson Family', room: '204', arrival: 'Sun 6/13', sample: true },
+    { family: 'Dave Miller',  room: '112', arrival: 'Mon 6/14', sample: true },
+    { family: 'Luis Garcia',  room: '118', arrival: 'Mon 6/14', sample: true },
+    { family: 'Ray Johnson', room: '204', arrival: 'Sun 6/13', sample: true },
   ],
   rsvp: [
-    { family: 'The Miller Family',  gen1: 0, gen2: 2, gen3: 2, sample: true },
-    { family: 'The Garcia Family',  gen1: 0, gen2: 2, gen3: 3, sample: true },
-    { family: 'The Johnson Family', gen1: 2, gen2: 2, gen3: 0, sample: true },
-    { family: 'The Brooks Family',  gen1: 0, gen2: 2, gen3: 1, sample: true },
+    { family: 'Dave Miller',  gen1: 0, gen2: 2, gen3: 2, sample: true },
+    { family: 'Luis Garcia',  gen1: 0, gen2: 2, gen3: 3, sample: true },
+    { family: 'Ray Johnson', gen1: 2, gen2: 2, gen3: 0, sample: true },
+    { family: 'Tom Brooks',  gen1: 0, gen2: 2, gen3: 1, sample: true },
   ],
   lakeDay: [
-    { family: 'The Miller Family',  adults: 2, kids: 2, sample: true },
-    { family: 'The Johnson Family', adults: 4, kids: 0, sample: true },
+    { family: 'Dave Miller',  adults: 2, kids: 2, sample: true },
+    { family: 'Ray Johnson', adults: 4, kids: 0, sample: true },
   ],
   dinner: [
-    { family: 'The Miller Family',  adults: 2, kids: 2, sample: true },
-    { family: 'The Garcia Family',  adults: 2, kids: 3, sample: true },
-    { family: 'The Johnson Family', adults: 4, kids: 0, sample: true },
+    { family: 'Dave Miller',  adults: 2, kids: 2, sample: true },
+    { family: 'Luis Garcia',  adults: 2, kids: 3, sample: true },
+    { family: 'Ray Johnson', adults: 4, kids: 0, sample: true },
   ],
 };
 
@@ -694,6 +696,16 @@ function placeButtons(place, { websiteLabel = 'Website' } = {}) {
 
 // Turns "415-917-0144" into "+14159170144" for tap-to-call links
 const telHref = (phone) => '+1' + phone.replace(/\D/g, '');
+
+// "Rebecca Thomas" → "Rebecca Thomas family" (leaves "... Family" alone)
+const familyLabel = (name) => (/\bfamily$/i.test(name.trim()) ? name.trim() : name.trim() + ' family');
+
+// Checks the name box has a first AND last name; returns a message or ''
+function nameProblem(name) {
+  if (!name.trim()) return 'Please enter your first and last name.';
+  if (name.trim().split(/\s+/).length < 2) return 'Please enter both your first and last name (for example, Rebecca Thomas).';
+  return '';
+}
 
 // Puts "1 kid" vs "2 kids" correctly
 const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
@@ -916,9 +928,11 @@ function renderHotel() {
       <div class="rate-box">
         <h3>Group Room Block</h3>
         <dl>
+          <dt>Standard king:</dt><dd>${esc(h.roomPrice)}</dd>
           <dt>Group rate code:</dt><dd>${esc(h.rateCode)}</dd>
           <dt>Book by:</dt><dd>${esc(h.bookBy)}</dd>
         </dl>
+        <p class="rate-note">${esc(h.roomPriceNote)}</p>
         ${bookBtn}
       </div>
     </div>
@@ -1115,7 +1129,7 @@ function renderBoard() {
     const list = families.length
       ? `<ul>${families.map((f) => `
           <li>
-            <span class="board-family">${esc(f.family)}</span>${sampleTag(f)}
+            <span class="board-family">${esc(familyLabel(f.family))}</span>${sampleTag(f)}
             <span class="board-meta">${plural(f.adults, 'adult')}, ${plural(f.kids, 'kid')} · ${esc(f.day)}</span>
           </li>`).join('')}</ul>`
       : '<p class="board-empty">No one yet. Be the first!</p>';
@@ -1140,7 +1154,7 @@ function setupSignupForm() {
     const day = form.querySelector('input[name="day"]:checked').value;
 
     let problem = '';
-    if (!family) problem = 'Please enter your family name.';
+    if (nameProblem(family)) problem = nameProblem(family);
     else if (adults + kids === 0) problem = 'Please enter how many people are coming.';
     else if (!activities.length) problem = 'Please check at least one activity.';
     if (problem) {
@@ -1153,8 +1167,8 @@ function setupSignupForm() {
     renderBoard();
     form.reset();
     success.textContent = updated
-      ? `Updated! ${family}'s sign-up now shows your latest choices.`
-      : `Thanks, ${family}! You're on the board below.`;
+      ? `Updated! ${familyLabel(family)}'s sign-up now shows your latest choices.`
+      : `Thanks, ${familyLabel(family)}! You're on the board below.`;
     success.hidden = false;
     $('#signup-board').scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
@@ -1216,7 +1230,7 @@ function setupShirtForm() {
       .filter((p) => p.name);
 
     let problem = '';
-    if (!family) problem = 'Please enter your family name.';
+    if (nameProblem(family)) problem = nameProblem(family);
     else if (!people.length) problem = 'Please add at least one person\'s name.';
     if (problem) { error.textContent = problem; error.hidden = false; success.hidden = true; return; }
     error.hidden = true;
@@ -1226,7 +1240,7 @@ function setupShirtForm() {
     e.target.reset();
     $('#shirt-people').innerHTML = '';
     addPersonRow();
-    success.textContent = `Got it! ${plural(people.length, 'shirt')} added for ${family}.`;
+    success.textContent = `Got it! ${plural(people.length, 'shirt')} added for ${familyLabel(family)}.`;
     success.hidden = false;
   });
 }
@@ -1254,7 +1268,7 @@ function renderShirtTally() {
   $('#shirt-list').innerHTML = families.length
     ? families.map((f) => {
         const ppl = lists.shirts.filter((s) => s.family === f);
-        return `<p><strong>${esc(f)}</strong>${sampleTag(ppl[0])}: ${ppl.map((p) => `${esc(p.name)} (${esc(p.type)} ${esc(p.size)})`).join(', ')}</p>`;
+        return `<p><strong>${esc(familyLabel(f))}</strong>${sampleTag(ppl[0])}: ${ppl.map((p) => `${esc(p.name)} (${esc(p.type)} ${esc(p.size)})`).join(', ')}</p>`;
       }).join('')
     : '<p>No sizes yet.</p>';
 }
@@ -1284,8 +1298,8 @@ function mountHeadcount(box) {
   const formHtml = `
     <form class="hc-form${isMain ? ' card form' : ''}" novalidate>
       <div class="form-row">
-        <label for="${id}-family">Family name</label>
-        <input type="text" id="${id}-family" autocomplete="family-name" placeholder="e.g. The Thomas Family" required>
+        <label for="${id}-family">Your first &amp; last name <small class="label-hint">Shows as the &ldquo;Rebecca Thomas family&rdquo;</small></label>
+        <input type="text" id="${id}-family" autocomplete="name" placeholder="e.g. Rebecca Thomas" required>
       </div>
       <div class="hc-counts">
         ${cols.map((c) => `
@@ -1297,7 +1311,7 @@ function mountHeadcount(box) {
       <p class="form-error" role="alert" hidden></p>
       <button type="submit" class="btn btn-navy btn-lg">${esc(s.button)}</button>
       <p class="form-success" role="status" hidden></p>
-      <p class="hc-hint">Plans changed? Submit again with the same family name to update your numbers.</p>
+      <p class="hc-hint">Plans changed? Submit again with the same name to update your numbers.</p>
     </form>`;
 
   const summaryHtml = `
@@ -1320,8 +1334,8 @@ function mountHeadcount(box) {
     const error = form.querySelector('.form-error');
     const success = form.querySelector('.form-success');
     const family = form.querySelector(`#${id}-family`).value.trim();
-    if (!family) {
-      error.textContent = 'Please enter your family name.';
+    if (nameProblem(family)) {
+      error.textContent = nameProblem(family);
       error.hidden = false; success.hidden = true;
       return;
     }
@@ -1335,8 +1349,8 @@ function mountHeadcount(box) {
     renderHeadcount(list);
     form.reset();
     success.textContent = total === 0
-      ? `Got it. We've marked ${family} as not coming. Sorry we'll miss you!`
-      : `${updated ? 'Updated' : 'Thanks'}, ${family}! ${plural(total, 'person')} counted.`.replace('persons', 'people');
+      ? `Got it. We've marked ${familyLabel(family)} as not coming. Sorry we'll miss you!`
+      : `${updated ? 'Updated' : 'Thanks'}, ${familyLabel(family)}! ${plural(total, 'person')} counted.`.replace('persons', 'people');
     success.hidden = false;
   });
 }
@@ -1352,15 +1366,15 @@ function renderHeadcount(list) {
   const grand = sums.reduce((a, b) => a + b, 0);
 
   box.querySelector('[data-totals]').innerHTML = `
-    <div class="hc-tile hc-tile-total"><span class="hc-num">${grand}</span><span class="hc-label">Total people</span></div>
-    ${cols.map((c, i) => `<div class="hc-tile"><span class="hc-num">${sums[i]}</span><span class="hc-label">${esc(c.label)}</span></div>`).join('')}
+    <div class="hc-tile hc-tile-total"><span class="hc-num">${grand}</span><span class="hc-label">Total</span></div>
+    ${cols.map((c, i) => `<div class="hc-tile"><span class="hc-num">${sums[i]}</span><span class="hc-label">${esc(c.label.replace('Generation ', 'Gen '))}</span></div>`).join('')}
     <div class="hc-tile"><span class="hc-num">${coming.length}</span><span class="hc-label">Families</span></div>`;
 
   box.querySelector('[data-list]').innerHTML = coming.length
     ? `<table class="count-table">
         <thead><tr><th>Family</th>${cols.map((c) => `<th>${esc(c.label.replace('Generation ', 'Gen '))}</th>`).join('')}<th>Total</th></tr></thead>
         <tbody>${coming.map((r) => `
-          <tr><td>${esc(r.family)}${sampleTag(r)}</td>${cols.map((c) => `<td>${Number(r[c.key]) || 0}</td>`).join('')}<td><strong>${totalOf(r)}</strong></td></tr>`).join('')}
+          <tr><td>${esc(familyLabel(r.family))}${sampleTag(r)}</td>${cols.map((c) => `<td>${Number(r[c.key]) || 0}</td>`).join('')}<td><strong>${totalOf(r)}</strong></td></tr>`).join('')}
         </tbody>
       </table>`
     : '<p class="board-empty">No one yet. Be the first!</p>';
@@ -1384,8 +1398,8 @@ function setupRoomForm() {
     const room = $('#rm-room').value.trim();
     const error = $('#room-error');
     const success = $('#room-success');
-    if (!family || !room) {
-      error.textContent = 'Please enter your family name and room number.';
+    if (nameProblem(family) || !room) {
+      error.textContent = nameProblem(family) || 'Please enter your room number.';
       error.hidden = false; success.hidden = true;
       return;
     }
@@ -1395,8 +1409,8 @@ function setupRoomForm() {
     e.target.reset();
     $('#rm-arrival').value = DATA.roomArrivalDefault;
     success.textContent = updated
-      ? `Updated! ${family} is now listed in room ${room}.`
-      : `Thanks, ${family}! You're in room ${room}.`;
+      ? `Updated! ${familyLabel(family)} is now listed in room ${room}.`
+      : `Thanks, ${familyLabel(family)}! You're in room ${room}.`;
     success.hidden = false;
   });
 }
@@ -1413,7 +1427,7 @@ function renderRooms() {
     <table class="tally-table room-table">
       <thead><tr><th>Room</th><th>Family</th><th>Arrived</th></tr></thead>
       <tbody>${sorted.map((r) => `
-        <tr><td><strong>${esc(r.room)}</strong></td><td>${esc(r.family)}${sampleTag(r)}</td><td>${esc(r.arrival)}</td></tr>`).join('')}
+        <tr><td><strong>${esc(r.room)}</strong></td><td>${esc(familyLabel(r.family))}${sampleTag(r)}</td><td>${esc(r.arrival)}</td></tr>`).join('')}
       </tbody>
     </table>`;
 }

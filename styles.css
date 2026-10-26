@@ -747,3 +747,7 @@ input[type="checkbox"], input[type="radio"] { width: 26px; height: 26px; accent-
 .hc-label { font-size: .85rem; }
 .day-extras { grid-template-columns: 1fr !important; }
 @media (min-width: 760px) { .bring-list { columns: 2; column-gap: 24px; } .bring-list li { break-inside: avoid; } }
+
+/* Small helper text inside form labels, and the room-price note */
+.label-hint { display: block; font-weight: 400; font-size: .9rem; color: var(--ink-soft); }
+.rate-note { margin: -6px 0 18px; color: var(--gold-pale); font-size: 1.05rem; }
