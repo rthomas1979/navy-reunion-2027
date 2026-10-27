@@ -177,12 +177,12 @@ const SHARED_SHEETS = {
   // site only SENDS them and never shows them. There's no csvUrl on purpose.
   // The email/phone boxes stay hidden until formUrl is filled in.
   contacts: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_CONTACT_FORM_ID/formResponse',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeN2Km_2xEQR0WGMyB3u1xGExCyH4dpXIDcI-jyhw5K4czXBg/formResponse',
     fields: {
-      family:  'entry.PASTE',
-      email:   'entry.PASTE',
-      phone:   'entry.PASTE',
-      entryId: 'entry.PASTE',
+      family:  'entry.1052576907',
+      email:   'entry.1452691614',
+      phone:   'entry.2070616284',
+      entryId: 'entry.1475771191',
     },
   },
 };
