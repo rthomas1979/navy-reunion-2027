@@ -250,7 +250,7 @@ const DATA = {
   hotelPhotos: [
     { file: '20261023_171344.jpg', alt: 'Exterior of the Best Western Plus High Country Inn with stone pillars and a green lawn', caption: 'Best Western Plus High Country Inn' },
     { file: '20261023_171333.jpg', alt: 'Curving sidewalk through the hotel\'s landscaped back garden under a big cloudy sky', caption: 'The back garden: our home base' },
-    { file: '20261024_102510.jpg', alt: 'Small cabin with Adirondack chairs, barrels and string lights beside a sandy area under a blue sky', caption: 'Garden gathering area' },
+    { file: '20261023_171336.jpg', alt: 'Family member taking photos on the hotel garden paths, with mountains in the distance', caption: 'Garden paths with mountain views' },
   ],
   lakeDayPhotos: [
     { file: '20261024_104116.jpg', alt: 'Covered Eagle Beach group pavilion with picnic tables at Willard Bay; a sign says by reservation only', caption: 'Eagle Beach group pavilion' },
@@ -322,7 +322,7 @@ const DATA = {
         'Open day for activities (see the <a href="#activities">Optional Activities</a> and <a href="#day-plans">sample day plans</a>).',
         "Then we all meet for dinner at {jeremiahs}, the log-cabin-style restaurant that shares our hotel's parking lot, famous for its Utah scones with honey butter.",
         '<strong>Dinner details and cost per person: TBD.</strong> We\'re still figuring out how this dinner will look and will post updates here.',
-        "We'll eat together, have a great time, and plan next year's reunion. Bring your ideas!",
+        "We'll eat together, have a great time, and start planning the 2029 reunion. Bring your ideas!",
         'Evening fire in the back garden.',
       ],
       buttons: ['jeremiahs'],
@@ -332,7 +332,7 @@ const DATA = {
       id: 'day-fri', date: 'Friday, June 18', title: 'Farewells',
       items: [
         'Breakfast together at the hotel.',
-        'Goodbyes and safe travels home. Until next year!',
+        'Goodbyes and safe travels home. See you in 2029!',
       ],
     },
   ],
@@ -548,7 +548,7 @@ const DATA = {
   ],
 
   /* ---------- Shirts ---------- */
-  shirtIntro: 'Every year we make matching reunion shirts. They\'re how we spot each other across the lake, and they show up in every group photo! Add each person in your family and their size so we can place one order for everybody. Shirts will be handed out at Lake Day (Tuesday 6/15) at Willard Bay, where we\'ll take our group photos.',
+  shirtIntro: 'Every reunion we make matching shirts. They\'re how we spot each other across the lake, and they show up in every group photo! Add each person in your family and their size so we can place one order for everybody. Shirts will be handed out at Lake Day (Tuesday 6/15) at Willard Bay, where we\'ll take our group photos.',
   shirtDeadline: 'TBD',
 
   /* ---------- Room Finder: choices for "Arrived" ---------- */
@@ -1559,7 +1559,7 @@ function startCountdown() {
       $('#countdown').hidden = true;
       caption.textContent = now < end
         ? '⚓ The reunion is underway. Welcome aboard!'
-        : 'Thank you for a wonderful reunion. See you next year!';
+        : 'Thank you for a wonderful reunion. See you in 2029!';
       return;
     }
     const diff = Math.floor((start - now) / 1000);
