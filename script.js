@@ -485,6 +485,15 @@ const DATA = {
       ],
     },
     {
+      emoji: '🛟', title: 'River & Hot Springs Day', drive: '~30 min to the river, ~35 min to the springs',
+      goodFor: ['adventurous', 'kids'],
+      steps: [
+        { when: 'Late morning (about 11:00 AM)', what: 'Float the Weber River with {barefoot} in Morgan. Reserve your time ahead.' },
+        { when: 'Lunch or early dinner', what: 'Head back toward Ogden to eat. {twentyFifth} has lots of choices, or grab something near the hotel.' },
+        { when: 'Evening', what: 'Drive north to {crystal} in Honeyville and soak those tubing muscles in the hot pools. Check their evening hours before you go.' },
+      ],
+    },
+    {
       emoji: '🏙️', title: 'Salt Lake City Day', drive: '~40 min each way',
       goodFor: ['seniors', 'kids'],
       steps: [
