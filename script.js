@@ -554,9 +554,11 @@ const DATA = {
   /* ---------- Room Finder: choices for "Arrived" ---------- */
   roomArrivalDays: ['Sun 6/13', 'Mon 6/14', 'Tue 6/15', 'Wed 6/16', 'Thu 6/17'],
   roomArrivalDefault: 'Mon 6/14',
-  // Room Finder is hidden until closer to the reunion. Change to true to open it.
+  // Room Finder opens AUTOMATICALLY on this date (Mountain Time).
+  // To open it early, change roomFinderOpen to true.
+  roomFinderOpensOn: '2027-06-01T00:00:00-06:00',
   roomFinderOpen: false,
-  roomFinderClosedText: '🔑 The Room Finder opens closer to the reunion. Once you\'ve checked in, you\'ll post your room number here so everyone can find you.',
+  roomFinderClosedText: '🔑 The Room Finder opens June 1, 2027. Once you\'ve checked in, you\'ll post your room number here so everyone can find you.',
   shirtSizes: {
     Youth: ['XS', 'S', 'M', 'L', 'XL'],
     Adult: ['S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'],
@@ -572,9 +574,9 @@ const DATA = {
      Anyone with the link can then view AND add photos.
      While a url contains "REPLACE", the button says "Link coming soon". */
   albums: [
-    { emoji: '⚓', name: 'Navy Days',     desc: 'Old photos of our Navy guys',  url: 'https://photos.app.goo.gl/REPLACE_WITH_NAVY_DAYS_LINK' },
-    { emoji: '📖', name: 'Past Reunions', desc: 'Memories from years gone by',  url: 'https://photos.app.goo.gl/REPLACE_WITH_PAST_REUNIONS_LINK' },
-    { emoji: '🏔️', name: 'Ogden 2027',    desc: 'New photos from this trip',    url: 'https://photos.app.goo.gl/REPLACE_WITH_OGDEN_2027_LINK' },
+    { emoji: '⚓', name: 'Navy Days',     desc: 'Old photos of our Navy guys',  url: 'https://photos.app.goo.gl/vksscm95sxKPGcqY7' },
+    { emoji: '📖', name: 'Past Reunions', desc: 'Memories from years gone by',  url: 'https://photos.app.goo.gl/1DS2GMzSmkHviNgD7' },
+    { emoji: '🏔️', name: 'Ogden 2027',    desc: 'New photos from this trip',    url: 'https://photos.app.goo.gl/ZQugY71cAUkTWSUs7' },
   ],
 
   uploadSteps: [
@@ -1428,7 +1430,8 @@ function renderHeadcount(list) {
 // Room Finder (in the Hotel section)
 function setupRoomForm() {
   // Hidden until DATA.roomFinderOpen is changed to true
-  if (!DATA.roomFinderOpen) {
+  const roomsOpen = DATA.roomFinderOpen || Date.now() >= new Date(DATA.roomFinderOpensOn).getTime();
+  if (!roomsOpen) {
     $('#room-finder').hidden = true;
     $('#room-closed').textContent = DATA.roomFinderClosedText;
     $('#room-closed').hidden = false;
