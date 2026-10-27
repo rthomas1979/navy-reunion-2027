@@ -751,3 +751,14 @@ input[type="checkbox"], input[type="radio"] { width: 26px; height: 26px; accent-
 /* Small helper text inside form labels, and the room-price note */
 .label-hint { display: block; font-weight: 400; font-size: .9rem; color: var(--ink-soft); }
 .rate-note { margin: -6px 0 18px; color: var(--gold-pale); font-size: 1.05rem; }
+
+/* Optional private contact boxes on the Who's Coming form */
+.hc-contact { margin: 0 0 16px; padding: 14px; border: 2px dashed var(--line); border-radius: 12px; background: var(--paper); }
+.hc-contact-note { margin: 0 0 10px; font-size: 1rem; color: var(--ink-soft); }
+.hc-contact .form-row-split { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 560px) { .hc-contact .form-row-split { grid-template-columns: 1fr 1fr; } }
+input[type="email"], input[type="tel"] {
+  width: 100%; min-height: 52px; padding: 10px 14px; font: inherit; font-size: 1.15rem; color: var(--ink);
+  background: var(--white); border: 2px solid #9aa6b8; border-radius: 10px;
+}
+.hc-cant { margin: 14px 0 0; padding: 10px 14px; background: var(--paper-alt); border-radius: 10px; }

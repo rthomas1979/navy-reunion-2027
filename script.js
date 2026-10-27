@@ -171,7 +171,24 @@ const SHARED_SHEETS = {
       entryId: 'entry.2021627154',
     },
   },
+
+  // Contact info (PRIVATE). Optional email/phone boxes on the Who's Coming
+  // form. These go to a SEPARATE spreadsheet that is NOT published, so the
+  // site only SENDS them and never shows them. There's no csvUrl on purpose.
+  // The email/phone boxes stay hidden until formUrl is filled in.
+  contacts: {
+    formUrl: 'https://docs.google.com/forms/d/e/PASTE_CONTACT_FORM_ID/formResponse',
+    fields: {
+      family:  'entry.PASTE',
+      email:   'entry.PASTE',
+      phone:   'entry.PASTE',
+      entryId: 'entry.PASTE',
+    },
+  },
 };
+
+// True once the private contact form above is connected
+const contactsReady = () => SHARED_SHEETS.enabled && !SHARED_SHEETS.contacts.formUrl.includes('PASTE');
 
 
 /* =====================================================================
@@ -1355,8 +1372,26 @@ function mountHeadcount(box) {
             <input type="number" id="${id}-${c.key}" data-key="${esc(c.key)}" min="0" max="50" value="0" inputmode="numeric">
           </div>`).join('')}
       </div>
+      ${list === 'rsvp' && contactsReady() ? `
+      <div class="hc-contact">
+        <p class="hc-contact-note">🔒 <strong>Optional:</strong> so the organizers can reach you. Only the organizers see this. It's never shown on the website.</p>
+        <div class="form-row-split">
+          <div>
+            <label for="${id}-email">Email</label>
+            <input type="email" id="${id}-email" autocomplete="email" inputmode="email" placeholder="name@example.com">
+          </div>
+          <div>
+            <label for="${id}-phone">Phone</label>
+            <input type="tel" id="${id}-phone" autocomplete="tel" inputmode="tel" placeholder="555-555-5555">
+          </div>
+        </div>
+      </div>` : ''}
       <p class="form-error" role="alert" hidden></p>
-      <button type="submit" class="btn btn-navy btn-lg">${esc(s.button)}</button>
+      <div class="btn-row">
+        <button type="submit" class="btn btn-navy btn-lg">${esc(s.button)}</button>
+        ${list === 'rsvp' ? '<button type="submit" class="btn btn-outline btn-lg" data-cant-come>😢 We can\'t make it</button>' : ''}
+      </div>
+      ${list === 'rsvp' ? '<p class="hc-hint">Can\'t come this time? Just enter your name (and email if you\'d like) and tap "We can\'t make it" so we know.</p>' : ''}
       <p class="form-success" role="status" hidden></p>
       <p class="hc-hint">Plans changed? Submit again with the same name to update your numbers.</p>
     </form>`;
@@ -1387,16 +1422,31 @@ function mountHeadcount(box) {
       return;
     }
     error.hidden = true;
+    // "We can't make it" button = everyone counts as 0
+    const cantCome = !!(e.submitter && e.submitter.hasAttribute('data-cant-come'));
     const record = { family };
     form.querySelectorAll('[data-key]').forEach((input) => {
-      record[input.dataset.key] = Math.max(0, parseInt(input.value, 10) || 0);
+      record[input.dataset.key] = cantCome ? 0 : Math.max(0, parseInt(input.value, 10) || 0);
     });
     const total = cols.reduce((sum, c) => sum + record[c.key], 0);
+
+    // Optional email/phone: checked first, then sent ONLY to the private contact form
+    const email = (form.querySelector(`#${id}-email`) || {}).value?.trim() || '';
+    const phone = (form.querySelector(`#${id}-phone`) || {}).value?.trim() || '';
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      error.textContent = 'That email address doesn\'t look quite right. Please check it, or leave it blank.';
+      error.hidden = false; success.hidden = true;
+      return;
+    }
+
     const updated = await addRecords(list, [record]);
+    if ((email || phone) && contactsReady()) {
+      await postToForm('contacts', { family, email, phone, entryId: entryIdFor(family) });
+    }
     renderHeadcount(list);
     form.reset();
     success.textContent = total === 0
-      ? `Got it. We've marked ${familyLabel(family)} as not coming. Sorry we'll miss you!`
+      ? `Thanks for letting us know, ${familyLabel(family)}. We'll miss you! Changed your mind? Just submit again with the same name.`
       : `${updated ? 'Updated' : 'Thanks'}, ${familyLabel(family)}! ${plural(total, 'person')} counted.`.replace('persons', 'people');
     success.hidden = false;
   });
@@ -1425,6 +1475,13 @@ function renderHeadcount(list) {
         </tbody>
       </table>`
     : '<p class="board-empty">No one yet. Be the first!</p>';
+
+  // Families who said they can't come (all zeros)
+  const cantCome = entries.filter((r) => totalOf(r) === 0);
+  if (list === 'rsvp' && cantCome.length) {
+    box.querySelector('[data-list]').innerHTML += `
+      <p class="hc-cant"><strong>💙 Can't make it this time:</strong> ${cantCome.map((r) => esc(familyLabel(r.family))).join(', ')}</p>`;
+  }
 }
 
 // Room Finder (in the Hotel section)
