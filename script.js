@@ -183,12 +183,15 @@ const SHARED_SHEETS = {
       email:   'entry.1452691614',
       phone:   'entry.2070616284',
       entryId: 'entry.1475771191',
+      address: 'entry.PASTE',   // "Mailing address" question (added by add-address-question.gs)
     },
   },
 };
 
 // True once the private contact form above is connected
 const contactsReady = () => SHARED_SHEETS.enabled && !SHARED_SHEETS.contacts.formUrl.includes('PASTE');
+// True once the "Mailing address" question is connected (address boxes stay hidden until then)
+const addressReady = () => contactsReady() && !String(SHARED_SHEETS.contacts.fields.address || 'PASTE').includes('PASTE');
 
 
 /* =====================================================================
@@ -892,6 +895,8 @@ async function postToForm(name, record) {
   const config = SHARED_SHEETS[name];
   const body = new URLSearchParams();
   Object.entries(config.fields).forEach(([key, entryId]) => {
+    // Skip questions that aren't connected yet, or have no answer
+    if (entryId.includes('PASTE') || record[key] === undefined) return;
     let value = record[key];
     if (key === 'activities') value = value.map((id) => findPlace(id).name).join(', ');
     body.append(entryId, value);
@@ -1374,7 +1379,8 @@ function mountHeadcount(box) {
       </div>
       ${list === 'rsvp' && contactsReady() ? `
       <div class="hc-contact">
-        <p class="hc-contact-note">🔒 <strong>Optional:</strong> so the organizers can reach you. Only the organizers see this. It's never shown on the website.</p>
+        <p class="hc-contact-title">📇 Let's get the family contact list updated!</p>
+        <p class="hc-contact-note">🔒 <strong>Optional.</strong> Only the organizers see this. It's never shown on the website.</p>
         <div class="form-row-split">
           <div>
             <label for="${id}-email">Email</label>
@@ -1385,6 +1391,25 @@ function mountHeadcount(box) {
             <input type="tel" id="${id}-phone" autocomplete="tel" inputmode="tel" placeholder="555-555-5555">
           </div>
         </div>
+        ${addressReady() ? `
+        <div class="form-row" style="margin:12px 0 0">
+          <label for="${id}-street">Mailing address</label>
+          <input type="text" id="${id}-street" autocomplete="street-address" placeholder="Street address">
+        </div>
+        <div class="address-row">
+          <div>
+            <label for="${id}-city">City</label>
+            <input type="text" id="${id}-city" autocomplete="address-level2">
+          </div>
+          <div>
+            <label for="${id}-state">State</label>
+            <input type="text" id="${id}-state" autocomplete="address-level1" maxlength="20">
+          </div>
+          <div>
+            <label for="${id}-zip">ZIP</label>
+            <input type="text" id="${id}-zip" autocomplete="postal-code" inputmode="numeric" maxlength="10">
+          </div>
+        </div>` : ''}
       </div>` : ''}
       <p class="form-error" role="alert" hidden></p>
       <div class="btn-row">
@@ -1433,6 +1458,10 @@ function mountHeadcount(box) {
     // Optional email/phone: checked first, then sent ONLY to the private contact form
     const email = (form.querySelector(`#${id}-email`) || {}).value?.trim() || '';
     const phone = (form.querySelector(`#${id}-phone`) || {}).value?.trim() || '';
+    // Address boxes → one line, e.g. "123 Main St, Ogden, UT 84404"
+    const part = (k) => (form.querySelector(`#${id}-${k}`) || {}).value?.trim() || '';
+    const cityState = [part('city'), part('state')].filter(Boolean).join(', ');
+    const address = [part('street'), [cityState, part('zip')].filter(Boolean).join(' ')].filter(Boolean).join(', ');
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       error.textContent = 'That email address doesn\'t look quite right. Please check it, or leave it blank.';
       error.hidden = false; success.hidden = true;
@@ -1440,8 +1469,8 @@ function mountHeadcount(box) {
     }
 
     const updated = await addRecords(list, [record]);
-    if ((email || phone) && contactsReady()) {
-      await postToForm('contacts', { family, email, phone, entryId: entryIdFor(family) });
+    if ((email || phone || address) && contactsReady()) {
+      await postToForm('contacts', { family, email, phone, address, entryId: entryIdFor(family) });
     }
     renderHeadcount(list);
     form.reset();

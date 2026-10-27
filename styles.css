@@ -762,3 +762,6 @@ input[type="email"], input[type="tel"] {
   background: var(--white); border: 2px solid #9aa6b8; border-radius: 10px;
 }
 .hc-cant { margin: 14px 0 0; padding: 10px 14px; background: var(--paper-alt); border-radius: 10px; }
+.hc-contact-title { margin: 0 0 2px; font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--navy); }
+.address-row { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 12px; }
+@media (min-width: 560px) { .address-row { grid-template-columns: 2fr 1fr 1fr; } }
