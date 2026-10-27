@@ -388,13 +388,6 @@ const DATA = {
       goodFor: ['seniors', 'kids'],
     },
     {
-      id: 'antelope', emoji: '🦬', name: 'Antelope Island State Park',
-      url: 'https://stateparks.utah.gov/parks/antelope-island/', maps: 'Antelope Island State Park, Syracuse, UT',
-      driveMin: 40, driveText: '~40 min',
-      desc: 'Free-roaming bison, sandy beaches and sweeping Great Salt Lake views. Lots to see from the car, so it\'s easy for everyone. Day-use fee applies.',
-      goodFor: ['kids', 'seniors'],
-    },
-    {
       id: 'slc', emoji: '🏙️', name: 'Salt Lake City',
       url: 'https://www.visitsaltlake.com/', maps: 'Temple Square, Salt Lake City, UT',
       driveMin: 40, driveText: '~40 min',
@@ -492,12 +485,12 @@ const DATA = {
       ],
     },
     {
-      emoji: '🦬', title: 'Island & City Day', drive: '~40 min to each stop',
+      emoji: '🏙️', title: 'Salt Lake City Day', drive: '~40 min each way',
       goodFor: ['seniors', 'kids'],
       steps: [
-        { when: 'Morning',   what: 'Drive the causeway to {antelope} to see bison and Great Salt Lake views.' },
+        { when: 'Morning',   what: 'Stroll the gardens and historic buildings at {templeSquare}.' },
         { when: 'Lunch',     what: 'Eat downtown at {cityCreek}.' },
-        { when: 'Afternoon', what: 'Stroll the gardens at {templeSquare} and explore downtown {slc}.' },
+        { when: 'Afternoon', what: 'Shop at City Creek or explore more of downtown {slc}, then head back for the evening fire.' },
       ],
     },
     {
@@ -621,7 +614,7 @@ const SAMPLE_ENTRIES = {
     { family: 'Dave Miller',  adults: 2, kids: 2, activities: ['hill', 'snowbasin', 'heberRailroad'], day: 'Wed 6/16', sample: true },
     { family: 'Luis Garcia',  adults: 2, kids: 3, activities: ['barefoot', 'olympic', 'willardBay'],   day: 'Wed 6/16', sample: true },
     { family: 'Ray Johnson', adults: 4, kids: 0, activities: ['hill', 'heberRailroad', 'zipline'],    day: 'Thu 6/17', sample: true },
-    { family: 'Tom Brooks',  adults: 2, kids: 1, activities: ['antelope', 'slc', 'hill'],             day: 'Either day', sample: true },
+    { family: 'Tom Brooks',  adults: 2, kids: 1, activities: ['crystal', 'slc', 'hill'],            day: 'Either day', sample: true },
   ],
   shirts: [
     { family: 'Dave Miller',  name: 'Dave',   type: 'Adult', size: 'XL', sample: true },
