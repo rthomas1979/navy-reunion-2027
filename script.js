@@ -84,76 +84,91 @@
    The person who submits it sees it right away.
    ===================================================================== */
 const SHARED_SHEETS = {
-  enabled: false,   // ← change to true once the URLs below are filled in
+  enabled: true,   // ← shared mode is ON: everyone sees everyone's entries
 
+  // All six forms send answers to ONE spreadsheet in the reunion Google account:
+  //   https://docs.google.com/spreadsheets/d/1Eme5hbh2DzgvHYTuzQLLqPDPwRztArEbmOklpq0MQSc/edit
+  // Each list reads its own tab (gid) through the "Publish to web" link.
+  // To fix a mistake or remove a duplicate, edit/delete the row in that sheet.
+
+  // Who's Coming
   rsvp: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_RSVP_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_RSVP_SHEET_ID/pub?output=csv',
-    // Keep these in the same order as the questions in your form.
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdFkHQN6osTc1Doyg604B1EpapdBmn3KDxqZhJmWZgeMQdbyg/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=56951782&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family:  'entry.4000000001',
-      gen1:    'entry.4000000002',
-      gen2:    'entry.4000000003',
-      gen3:    'entry.4000000004',
-      entryId: 'entry.4000000005',
+      family:  'entry.208384206',
+      gen1:    'entry.380097698',
+      gen2:    'entry.368800929',
+      gen3:    'entry.949098515',
+      entryId: 'entry.1145279668',
     },
   },
 
+  // Lake Day Headcount
   lakeDay: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_LAKE_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_LAKE_SHEET_ID/pub?output=csv',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfNkP4SykQTM9Q7_wqI1_t9XWKZx10GP2yz9hAKPomMgUunxA/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=1956071491&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family:  'entry.5000000001',
-      adults:  'entry.5000000002',
-      kids:    'entry.5000000003',
-      entryId: 'entry.5000000004',
+      family:  'entry.2095969597',
+      adults:  'entry.1209987374',
+      kids:    'entry.1091466827',
+      entryId: 'entry.987312011',
     },
   },
 
+  // Group Dinner Headcount
   dinner: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_DINNER_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_DINNER_SHEET_ID/pub?output=csv',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScO6H6D9L_GxYvWd4BsvEBhyANdLfLIZTCq30nUgnSm2oYp5g/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=511816537&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family:  'entry.6000000001',
-      adults:  'entry.6000000002',
-      kids:    'entry.6000000003',
-      entryId: 'entry.6000000004',
+      family:  'entry.498193915',
+      adults:  'entry.1107757803',
+      kids:    'entry.172247898',
+      entryId: 'entry.1542283205',
     },
   },
 
+  // Activity Sign-Ups
   signups: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_SIGNUP_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_SIGNUP_SHEET_ID/pub?output=csv',
-    // Keep these in the same order as the questions in your form.
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScFUPdiX1Qv1_kyuhJIkA3r405LzGVmLveb3qeI_Y37Hb5Z9w/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=952780515&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family:     'entry.1000000001',
-      adults:     'entry.1000000002',
-      kids:       'entry.1000000003',
-      activities: 'entry.1000000004',
-      day:        'entry.1000000005',
-      entryId:    'entry.1000000006',
+      family:     'entry.318356423',
+      adults:     'entry.207406064',
+      kids:       'entry.28411694',
+      activities: 'entry.174720709',
+      day:        'entry.579479928',
+      entryId:    'entry.1414201749',
     },
   },
 
+  // Shirt Sizes
   shirts: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_SHIRT_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_SHIRT_SHEET_ID/pub?output=csv',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSeIr_3f4wi3qRDv2iCNFETLe3W7koifG7eKFFLNHiVp9y_PAQ/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=1590735579&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family: 'entry.2000000001',
-      name:   'entry.2000000002',
-      type:   'entry.2000000003',
-      size:   'entry.2000000004',
+      family: 'entry.1864878535',
+      name:   'entry.829915896',
+      type:   'entry.1232066755',
+      size:   'entry.461411',
     },
   },
 
+  // Room Finder
   rooms: {
-    formUrl: 'https://docs.google.com/forms/d/e/PASTE_ROOM_FORM_ID/formResponse',
-    csvUrl:  'https://docs.google.com/spreadsheets/d/e/PASTE_ROOM_SHEET_ID/pub?output=csv',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScvHZt0RXHPYmqd0a2j1xm5iUNR5oyP0fEiFWZPU6IltR-nLg/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=93023803&single=true&output=csv',
+    // Same order as the questions in the form.
     fields: {
-      family:  'entry.3000000001',
-      room:    'entry.3000000002',
-      arrival: 'entry.3000000003',
-      entryId: 'entry.3000000004',
+      family:  'entry.183234514',
+      room:    'entry.899233106',
+      arrival: 'entry.1881291600',
+      entryId: 'entry.2021627154',
     },
   },
 };
