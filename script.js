@@ -494,6 +494,16 @@ const DATA = {
       ],
     },
     {
+      emoji: '🪂', title: 'Zip, Crater & Hot Springs Day', drive: 'Full day: ~1 hr 20 min out, about 1 hr 45 min from Heber to the springs, ~35 min back to the hotel',
+      goodFor: ['adventurous', 'kids'],
+      steps: [
+        { when: 'Morning', what: 'Zip lines and the Aerial Park ropes course at {zipline} over Rainbow Bay. Book ahead.' },
+        { when: 'Midday', what: 'Warm swim or snorkel at {crater} in Midway, about 15 minutes away (reservations required).' },
+        { when: 'Late lunch', what: 'Eat on the drive back toward Ogden. Park City and Morgan are both along the way.' },
+        { when: 'Evening', what: 'Finish with a soak at {crystal} in Honeyville. Check their evening hours before you go.' },
+      ],
+    },
+    {
       emoji: '🏙️', title: 'Salt Lake City Day', drive: '~40 min each way',
       goodFor: ['seniors', 'kids'],
       steps: [
