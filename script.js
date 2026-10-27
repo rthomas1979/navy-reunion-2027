@@ -250,7 +250,7 @@ const DATA = {
   hotelPhotos: [
     { file: '20261023_171344.jpg', alt: 'Exterior of the Best Western Plus High Country Inn with stone pillars and a green lawn', caption: 'Best Western Plus High Country Inn' },
     { file: '20261023_171333.jpg', alt: 'Curving sidewalk through the hotel\'s landscaped back garden under a big cloudy sky', caption: 'The back garden: our home base' },
-    { file: '20261023_171336.jpg', alt: 'Family member taking photos on the hotel garden paths, with mountains in the distance', caption: 'Garden paths with mountain views' },
+    { file: '20261023_171336.jpg', alt: 'Hotel garden lawn, stone planters and patio seating with mountains in the distance', caption: 'Garden paths with mountain views' },
   ],
   lakeDayPhotos: [
     { file: '20261024_104116.jpg', alt: 'Covered Eagle Beach group pavilion with picnic tables at Willard Bay; a sign says by reservation only', caption: 'Eagle Beach group pavilion' },
@@ -591,7 +591,7 @@ const DATA = {
   /* ---------- Scouting-trip gallery (files in /images) ---------- */
   gallery: [
     { file: '20261023_171333.jpg', alt: 'Curving sidewalk through the hotel\'s landscaped back garden under a big cloudy sky', caption: 'The hotel\'s back garden: our home base' },
-    { file: '20261023_171336.jpg', alt: 'Family member taking photos on a garden path, with mountains in the distance', caption: 'Scouting the garden paths' },
+    { file: '20261023_171336.jpg', alt: 'Hotel garden lawn, stone planters and patio seating with mountains in the distance', caption: 'Garden patio with mountain views' },
     { file: '20261023_171342.jpg', alt: 'Rustic lodge-style building with a stone chimney across a green lawn at the hotel', caption: 'Lodge building on the hotel grounds' },
     { file: '20261023_171344.jpg', alt: 'Exterior of the Best Western Plus High Country Inn with stone pillars and a green lawn', caption: 'Best Western Plus High Country Inn' },
     { file: '20261024_093520.jpg', alt: 'Banquet room set with round tables and white tablecloths', caption: 'Banquet room' },
