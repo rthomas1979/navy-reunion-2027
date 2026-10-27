@@ -183,7 +183,7 @@ const DATA = {
   quickCards: [
     { emoji: '📅', label: 'Dates',        detail: 'Mon–Fri, June 14–18, 2027',  href: '#schedule' },
     { emoji: '🏨', label: 'Hotel',        detail: 'Best Western Plus High Country Inn', href: '#hotel' },
-    { emoji: '🚤', label: 'Lake Day',     detail: 'Wed 6/16 · Willard Bay',      href: '#day-wed' },
+    { emoji: '🚤', label: 'Lake Day',     detail: 'Tue 6/15 · Willard Bay',      href: '#day-tue' },
     { emoji: '🍽️', label: 'Group Dinner', detail: "Thu 6/17 · Jeremiah's",       href: '#day-thu' },
     { emoji: '👕', label: 'Shirt Sizes',  detail: 'Order deadline: TBD',         href: '#shirts' },
     { emoji: '📸', label: 'Photo Upload', detail: 'Share your pictures',         href: '#photos' },
@@ -257,6 +257,7 @@ const DATA = {
     airport:        { name: 'Salt Lake City International Airport', url: 'https://www.slcairport.com/', maps: 'Salt Lake City International Airport, UT' },
     fishingLicense: { name: 'Utah Division of Wildlife Resources (fishing licenses)', url: 'https://wildlife.utah.gov/' },
     deerCreek:      { name: 'Deer Creek State Park', url: 'https://stateparks.utah.gov/parks/deer-creek/', maps: 'Deer Creek State Park, UT' },
+    crystalVisitUtah: { name: 'Visit Utah: Crystal Hot Springs', url: 'https://www.visitutah.com/places-to-go/cities-and-towns/brigham-city/crystal-hot-springs' },
     dinoPark:       { name: 'George S. Eccles Dinosaur Park', url: 'https://dinosaurpark.org/', maps: 'George S. Eccles Dinosaur Park, 1544 E Park Blvd, Ogden, UT 84401' },
   },
 
@@ -278,14 +279,7 @@ const DATA = {
       ],
     },
     {
-      id: 'day-tue', date: 'Tuesday, June 15', title: 'Open Day',
-      items: [
-        'Free day to explore. See the <a href="#activities">Optional Activities</a> and <a href="#day-plans">sample day plans</a>, and put your family on the <a href="#signups">sign-up board</a> so others can join you.',
-        'Evening fire in the back garden.',
-      ],
-    },
-    {
-      id: 'day-wed', date: 'Wednesday, June 16', title: 'Group Lake Day at {willardBay}',
+      id: 'day-tue', date: 'Tuesday, June 15', title: 'Group Lake Day at {willardBay}',
       group: true, flag: 'All Together',
       meta: ['🚗 ~20 min from the hotel', '🕚 Arrive about 11:00 AM', '📸 Group photos + shirts', '💲 Group meal: cost per person TBD'],
       items: [
@@ -297,6 +291,13 @@ const DATA = {
       buttons: ['willardBay', 'clubRec'],
       lakeDayExtras: true,
       headcount: { list: 'lakeDay', title: '🏖️ Who\'s coming to Lake Day?', note: 'Helps us plan the group meal. Submit again any time to update your numbers.' },
+    },
+    {
+      id: 'day-wed', date: 'Wednesday, June 16', title: 'Open Day',
+      items: [
+        'Free day to explore. See the <a href="#activities">Optional Activities</a> and <a href="#day-plans">sample day plans</a>, and put your family on the <a href="#signups">sign-up board</a> so others can join you.',
+        'Evening fire in the back garden.',
+      ],
     },
     {
       id: 'day-thu', date: 'Thursday, June 17', title: "Open Day + Group Dinner at {jeremiahs}",
@@ -361,7 +362,7 @@ const DATA = {
       id: 'willardBay', emoji: '🏖️', name: 'Willard Bay State Park',
       url: 'https://stateparks.utah.gov/parks/willard-bay/', maps: 'Willard Bay State Park, Willard, UT',
       driveMin: 20, driveText: '~20 min', photo: 'images/20261024_104743.jpg',
-      desc: 'Our Wednesday Lake Day spot, and great for a second lake day too: beaches, boat rentals, fishing and picnic pavilions. State park day-use fee applies.',
+      desc: 'Our Tuesday Lake Day spot, and great for a second lake day too: beaches, boat rentals, fishing and picnic pavilions. State park day-use fee applies.',
       goodFor: ['kids', 'seniors'],
     },
     {
@@ -370,6 +371,14 @@ const DATA = {
       driveMin: 30, driveText: '~30 min',
       desc: 'Float the Weber River in Morgan, UT on big tubes. Reservations required; check their site for age and swimming requirements.',
       goodFor: ['adventurous', 'kids'],
+    },
+    {
+      id: 'crystal', emoji: '♨️', name: 'Crystal Hot Springs',
+      url: 'https://www.crystalhotsprings.net/', maps: 'Crystal Hot Springs, 8215 N Highway 38, Honeyville, UT',
+      driveMin: 35, driveText: '~35 min',
+      desc: 'Natural hot springs in Honeyville, near Brigham City: hot tubs, a big soaking pool, a cooler swimming pool and two water slides, with pools from about 65° to 134°. Hours and day-use fees vary by season, so check before you go.',
+      goodFor: ['kids', 'seniors'],
+      extraLinks: ['crystalVisitUtah'],
     },
     {
       id: 'snowbasin', emoji: '🚡', name: 'Snowbasin Resort Gondola & Mini Golf',
@@ -441,7 +450,7 @@ const DATA = {
 
   driveNote: 'Drive times are approximate and depend on traffic. Hours/prices: confirm before you go.',
 
-  /* ---------- Sample day plans for the open days (Tue & Thu) ----------
+  /* ---------- Sample day plans for the open days (Wed & Thu) ----------
      Each plan is a card. Add, remove or reorder plans freely.
      "steps" are the parts of the day; {ids} become links. */
   dayPlansIntro: 'Here are some ready-made plans for the open days. Mix and match, or just relax at the hotel. Everyone meets back at the fire in the evening.',
@@ -474,6 +483,15 @@ const DATA = {
       ],
     },
     {
+      emoji: '♨️', title: 'Hot Springs Day', drive: '~35 min each way',
+      goodFor: ['kids', 'seniors'],
+      steps: [
+        { when: 'Morning',   what: 'Soak and swim at {crystal}. Kids can hit the water slides while grown-ups relax in the hot pools.' },
+        { when: 'Lunch',     what: 'Grab lunch in nearby Brigham City on the way back.' },
+        { when: 'Afternoon', what: 'Back to Ogden for an easy afternoon, then dinner and a stroll on {twentyFifth}.' },
+      ],
+    },
+    {
       emoji: '🦬', title: 'Island & City Day', drive: '~40 min to each stop',
       goodFor: ['seniors', 'kids'],
       steps: [
@@ -503,7 +521,7 @@ const DATA = {
   ],
 
   /* ---------- Shirts ---------- */
-  shirtIntro: 'Every year we make matching reunion shirts. They\'re how we spot each other across the lake, and they show up in every group photo! Add each person in your family and their size so we can place one order for everybody. Shirts will be handed out at Lake Day (Wednesday 6/16) at Willard Bay, where we\'ll take our group photos.',
+  shirtIntro: 'Every year we make matching reunion shirts. They\'re how we spot each other across the lake, and they show up in every group photo! Add each person in your family and their size so we can place one order for everybody. Shirts will be handed out at Lake Day (Tuesday 6/15) at Willard Bay, where we\'ll take our group photos.',
   shirtDeadline: 'TBD',
 
   /* ---------- Room Finder: choices for "Arrived" ---------- */
@@ -582,7 +600,7 @@ const DATA = {
     },
     {
       q: 'Do I have to do every activity?',
-      a: 'Not at all! Lake Day (Wed) and the Group Dinner (Thu) are our two all-together events. Everything else is optional. Do as much or as little as you like, and the back garden fire is always there to come home to.',
+      a: 'Not at all! Lake Day (Tue) and the Group Dinner (Thu) are our two all-together events. Everything else is optional. Do as much or as little as you like, and the back garden fire is always there to come home to.',
     },
     {
       q: 'Who do I call with questions?',
@@ -600,8 +618,8 @@ const DATA = {
    ===================================================================== */
 const SAMPLE_ENTRIES = {
   signups: [
-    { family: 'Dave Miller',  adults: 2, kids: 2, activities: ['hill', 'snowbasin', 'heberRailroad'], day: 'Tue 6/15', sample: true },
-    { family: 'Luis Garcia',  adults: 2, kids: 3, activities: ['barefoot', 'olympic', 'willardBay'],   day: 'Tue 6/15', sample: true },
+    { family: 'Dave Miller',  adults: 2, kids: 2, activities: ['hill', 'snowbasin', 'heberRailroad'], day: 'Wed 6/16', sample: true },
+    { family: 'Luis Garcia',  adults: 2, kids: 3, activities: ['barefoot', 'olympic', 'willardBay'],   day: 'Wed 6/16', sample: true },
     { family: 'Ray Johnson', adults: 4, kids: 0, activities: ['hill', 'heberRailroad', 'zipline'],    day: 'Thu 6/17', sample: true },
     { family: 'Tom Brooks',  adults: 2, kids: 1, activities: ['antelope', 'slc', 'hill'],             day: 'Either day', sample: true },
   ],
