@@ -183,7 +183,7 @@ const SHARED_SHEETS = {
       email:   'entry.1452691614',
       phone:   'entry.2070616284',
       entryId: 'entry.1475771191',
-      address: 'entry.PASTE',   // "Mailing address" question (added by add-address-question.gs)
+      address: 'entry.355219324',   // "Mailing address" question (added by add-address-question.gs)
     },
   },
 };
