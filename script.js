@@ -210,9 +210,9 @@ const DATA = {
      "Generation 4" question + gen4 field in SHARED_SHEETS.rsvp. */
   whosComingIntro: 'Let us know who\'s coming! Enter how many people from your family are in each generation. Submit again any time to update your numbers.',
   generations: [
-    { key: 'gen1', label: 'Generation 1', hint: 'Grandparents' },
-    { key: 'gen2', label: 'Generation 2', hint: 'Their children & spouses' },
-    { key: 'gen3', label: 'Generation 3', hint: 'Grandkids' },
+    { key: 'gen1', label: 'Generation 1' },
+    { key: 'gen2', label: 'Generation 2' },
+    { key: 'gen3', label: 'Generation 3' },
   ],
 
   /* ---------- Hotel ---------- */
