@@ -172,6 +172,18 @@ const SHARED_SHEETS = {
     },
   },
 
+  // Movie Night suggestions (Wednesday). Added by add-movie-form.gs.
+  // The suggestion box shows "opening soon" until formUrl is filled in.
+  movies: {
+    formUrl: 'PASTE_MOVIE_FORM_URL',
+    csvUrl:  'PASTE_MOVIE_CSV_URL',
+    // Same order as the questions in the form.
+    fields: {
+      family: 'PASTE_ENTRY_ID',
+      movie:  'PASTE_ENTRY_ID',
+    },
+  },
+
   // Contact info (PRIVATE). Optional email/phone boxes on the Who's Coming
   // form. These go to a SEPARATE spreadsheet that is NOT published, so the
   // site only SENDS them and never shows them. There's no csvUrl on purpose.
@@ -191,6 +203,8 @@ const SHARED_SHEETS = {
 // True once the private contact form above is connected
 const contactsReady = () => SHARED_SHEETS.enabled && !SHARED_SHEETS.contacts.formUrl.includes('PASTE');
 // True once the "Mailing address" question is connected (address boxes stay hidden until then)
+// True once the Movie Suggestions form above is connected
+const moviesReady = () => !SHARED_SHEETS.enabled || !SHARED_SHEETS.movies.formUrl.includes('PASTE');
 const addressReady = () => contactsReady() && !String(SHARED_SHEETS.contacts.fields.address || 'PASTE').includes('PASTE');
 
 
@@ -329,11 +343,14 @@ const DATA = {
       headcount: { list: 'lakeDay', title: '🏖️ Who\'s coming to Lake Day?', note: 'Helps us plan the group meal. Submit again any time to update your numbers.' },
     },
     {
-      id: 'day-wed', date: 'Wednesday, June 16', title: 'Open Day',
+      id: 'day-wed', date: 'Wednesday, June 16', title: 'Open Day + Movie Night',
+      meta: ['🎬 Movie night at the hotel', '🕖 Time: TBD'],
       items: [
         'Free day to explore. See the <a href="#activities">Optional Activities</a> and <a href="#day-plans">sample day plans</a>, and put your family on the <a href="#signups">sign-up board</a> so others can join you.',
+        '<strong>Movie night!</strong> We\'re showing a movie at the hotel for anyone who\'d like to join. Have a favorite? Suggest it below.',
         'Evening fire in the back garden.',
       ],
+      movies: true,
     },
     {
       id: 'day-thu', date: 'Thursday, June 17', title: "Open Day + Group Dinner at {jeremiahs}",
@@ -700,6 +717,11 @@ const SAMPLE_ENTRIES = {
     { family: 'Luis Garcia',  room: '118', arrival: 'Mon 6/14', sample: true },
     { family: 'Ray Johnson', room: '204', arrival: 'Sun 6/13', sample: true },
   ],
+  movies: [
+    { family: 'Dave Miller',  movie: 'Top Gun', sample: true },
+    { family: 'Luis Garcia',  movie: 'The Sandlot', sample: true },
+    { family: 'Ray Johnson', movie: 'Top Gun', sample: true },
+  ],
   rsvp: [
     { family: 'Dave Miller',  gen1: 0, gen2: 2, gen3: 2, sample: true },
     { family: 'Luis Garcia',  gen1: 0, gen2: 2, gen3: 3, sample: true },
@@ -797,7 +819,7 @@ const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
    on SHARED_SHEETS.enabled.
    ===================================================================== */
 const STORAGE_PREFIX = 'navyReunion2027.';
-const lists = { rsvp: [], lakeDay: [], dinner: [], signups: [], shirts: [], rooms: [] };
+const lists = { rsvp: [], lakeDay: [], dinner: [], signups: [], shirts: [], rooms: [], movies: [] };
 
 // Lists where submitting again UPDATES your earlier entry instead of
 // adding a second one. (Shirts add people, so they're not on this list.)
@@ -886,6 +908,7 @@ function rowToRecord(name, row) {
 
 async function loadList(name) {
   if (SHARED_SHEETS.enabled) {
+    if (SHARED_SHEETS[name].csvUrl.includes('PASTE')) { lists[name] = []; return; } // not connected yet
     try {
       const response = await fetch(SHARED_SHEETS[name].csvUrl, { cache: 'no-store' });
       if (!response.ok) throw new Error('HTTP ' + response.status);
@@ -1055,6 +1078,7 @@ function renderSchedule() {
       return placeButtons(p, { websiteLabel: p.name });
     }).join('')}</div>` : '';
     let extras = day.lakeDayExtras ? photoStrip('lakeDay') + lakeDayExtrasHtml() : '';
+    if (day.movies) extras += movieBoxHtml();
     if (day.headcount) extras += `<div class="headcount" data-headcount="${esc(day.headcount.list)}"></div>`;
     return `
       <li class="timeline-item" id="${esc(day.id)}">
@@ -1581,6 +1605,84 @@ function renderRooms() {
     </table>`;
 }
 
+// Movie Night suggestion box (Wednesday)
+function movieBoxHtml() {
+  if (!moviesReady()) {
+    return `
+      <div class="headcount movie-box">
+        <h4>🎬 Movie suggestions</h4>
+        <p class="hc-note">The suggestion box opens soon. Until then, send your ideas to Rebecca or Athena.</p>
+      </div>`;
+  }
+  return `
+    <div class="headcount movie-box">
+      <h4>🎬 Got a movie recommendation?</h4>
+      <p class="hc-note">Suggest as many as you like. We'll pick from the list.</p>
+      <div class="hc-stack">
+        <form class="hc-form" id="movie-form" novalidate>
+          <div class="form-row">
+            <label for="mv-family">Your first &amp; last name <small class="label-hint">Shows as the &ldquo;Rebecca Thomas family&rdquo;</small></label>
+            <input type="text" id="mv-family" autocomplete="name" placeholder="e.g. Rebecca Thomas" required>
+          </div>
+          <div class="form-row">
+            <label for="mv-movie">Movie</label>
+            <input type="text" id="mv-movie" placeholder="e.g. Top Gun" maxlength="100" required>
+          </div>
+          <p class="form-error" id="movie-error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-navy btn-lg">Suggest this movie</button>
+          <p class="form-success" id="movie-success" role="status" hidden></p>
+        </form>
+        <div class="hc-summary" id="movie-list"></div>
+      </div>
+      <button type="button" class="btn-link" data-reset="movies" ${SHARED_SHEETS.enabled ? 'hidden' : ''}>Reset to sample data</button>
+    </div>`;
+}
+
+function setupMovieForm() {
+  const form = $('#movie-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const family = $('#mv-family').value.trim();
+    const movie = $('#mv-movie').value.trim();
+    const error = $('#movie-error');
+    const success = $('#movie-success');
+    if (nameProblem(family) || !movie) {
+      error.textContent = nameProblem(family) || 'Please type a movie title.';
+      error.hidden = false; success.hidden = true;
+      return;
+    }
+    error.hidden = true;
+    await addRecords('movies', [{ family, movie }]);
+    renderMovies();
+    $('#mv-movie').value = '';   // keep the name so they can suggest another
+    success.textContent = `Thanks, ${familyLabel(family)}! "${movie}" is on the list.`;
+    success.hidden = false;
+  });
+}
+
+// Same title suggested by several families shows once, with a count
+function renderMovies() {
+  const box = $('#movie-list');
+  if (!box) return;
+  const byTitle = new Map();
+  lists.movies.forEach((r) => {
+    const key = String(r.movie || '').toLowerCase().replace(/^the\s+/, '').replace(/[^a-z0-9]/g, '');
+    if (!key) return;
+    if (!byTitle.has(key)) byTitle.set(key, { title: r.movie, families: [], sample: false });
+    const m = byTitle.get(key);
+    if (r.family && !m.families.includes(r.family)) m.families.push(r.family);
+    if (r.sample) m.sample = true;
+  });
+  const movies = [...byTitle.values()].sort((a, b) => b.families.length - a.families.length || a.title.localeCompare(b.title));
+  box.innerHTML = movies.length ? `
+    <h5 class="movie-list-title">Suggestions so far</h5>
+    <ul class="movie-list">${movies.map((m) => `
+      <li><strong>${esc(m.title)}</strong>${m.families.length > 1 ? ` <span class="movie-votes">${m.families.length} families</span>` : ''}${sampleTag(m)}
+        <small>${m.families.map((f) => esc(familyLabel(f))).join(', ')}</small></li>`).join('')}
+    </ul>` : '<p class="board-empty">No suggestions yet. Be the first!</p>';
+}
+
 // Merch shop (coming soon until DATA.merch.url is filled in)
 function renderMerch() {
   const m = DATA.merch;
@@ -1800,6 +1902,7 @@ function setupResetButtons() {
     if (name === 'signups') renderBoard();
     if (name === 'shirts') renderShirtTally();
     if (name === 'rooms') renderRooms();
+    if (name === 'movies') renderMovies();
     if (['rsvp', 'lakeDay', 'dinner'].includes(name)) renderHeadcount(name);
   });
 }
@@ -1825,6 +1928,7 @@ async function init() {
   setupSignupForm();
   setupShirtForm();
   setupRoomForm();
+  setupMovieForm();
   document.querySelectorAll('[data-headcount]').forEach(mountHeadcount);
   setupLightbox();
   setupResetButtons();
@@ -1835,6 +1939,7 @@ async function init() {
   renderBoard();
   renderShirtTally();
   renderRooms();
+  renderMovies();
   ['rsvp', 'lakeDay', 'dinner'].forEach(renderHeadcount);
 }
 
