@@ -765,3 +765,12 @@ input[type="email"], input[type="tel"] {
 .hc-contact-title { margin: 0 0 2px; font-family: var(--font-head); font-size: 1.25rem; font-weight: 700; color: var(--navy); }
 .address-row { display: grid; gap: 12px; grid-template-columns: 1fr; margin-top: 12px; }
 @media (min-width: 560px) { .address-row { grid-template-columns: 2fr 1fr 1fr; } }
+
+/* Group booking deadline (Crater), merch shop */
+.group-booking { background: var(--gold-pale); border-left: 5px solid var(--gold); border-radius: 8px; padding: 10px 12px; font-size: 1rem; }
+.board-slots { margin: 0; padding: 8px 16px; background: var(--gold-pale); font-size: .95rem; font-weight: 600; color: var(--navy-deep); }
+.merch-card { display: flex; gap: 18px; align-items: flex-start; max-width: 900px; margin: 0 auto; border: 2px dashed var(--gold); }
+.merch-icon { font-size: 2.6rem; line-height: 1; }
+.merch-card p { margin: 0 0 10px; }
+.merch-note { color: var(--ink-soft); font-size: 1rem; }
+.soon-badge { display: inline-block; margin-left: 8px; padding: 2px 12px; border-radius: 999px; background: var(--red); color: #fff; font-family: var(--font-body); font-size: .85rem; font-weight: 700; letter-spacing: .04em; vertical-align: 4px; }

@@ -253,8 +253,10 @@ const DATA = {
     ],
     roomPrice: 'About $149 + tax per night',
     roomPriceNote: 'That\'s for a standard king room. Family rooms and suites may cost more.',
-    rateCode: 'TBD',
-    bookBy:   'TBD',
+    // Name to give the hotel when you call or book, so you get the group rate
+    blockName: 'Hector Reunion',
+    bookBy:   '5:00 PM Utah time, Friday, June 4, 2027',
+    bookByNote: 'After that, rooms are no longer held for our group.',
     // Replace with the group-booking link from the hotel when you have it.
     // While it contains "REPLACE", the button shows "Booking link coming soon".
     bookingUrl: 'REPLACE_WITH_GROUP_BOOKING_LINK',
@@ -316,9 +318,9 @@ const DATA = {
     {
       id: 'day-tue', date: 'Tuesday, June 15', title: 'Group Lake Day at {willardBay}',
       group: true, flag: 'All Together',
-      meta: ['🚗 ~20 min from the hotel', '🕚 Arrive about 11:00 AM', '📸 Group photos + shirts', '💲 Group meal: cost per person TBD'],
+      meta: ['🚗 ~20 min from the hotel', '🕚 Arrive about 11:00 AM', '👕 Reunion shirts handed out', '💲 Group meal: cost per person TBD'],
       items: [
-        '<strong>Group photos and reunion shirts!</strong> We\'ll hand out this year\'s shirts at the lake, then take our group photos together.',
+        '<strong>Reunion shirts!</strong> We\'ll hand out this year\'s shirts today.',
         '<strong>Group meal grilled at the lake.</strong> Cost per person: TBD.',
         'Things to do: rentals through {clubRec} (kayaks, canoes, pedal boats, pontoon boats, fishing boats, and water trampolines), fishing, swimming, and the beach.',
         '<strong>Good to know:</strong> Utah State Parks charges a day-use fee at Willard Bay; check the {willardBay} page for the current fee. Check with {clubRec} for rental prices and reservations.',
@@ -463,7 +465,9 @@ const DATA = {
       id: 'crater', emoji: '♨️', name: 'The Homestead Crater',
       url: 'https://www.utahcrater.com/', maps: 'Homestead Crater, 700 N Homestead Dr, Midway, UT 84049',
       driveMin: 70, driveText: '~1 hr 10 min',
-      desc: 'Swim, soak or snorkel in warm (90–96°F) mineral water inside a 55-foot beehive-shaped limestone dome at the Homestead Resort in Midway, right next to Heber. Reservations required for every session.',
+      desc: 'Swim, soak or snorkel in warm (90–96°F) mineral water inside a 55-foot beehive-shaped limestone dome at the Homestead Resort in Midway, right next to Heber.',
+      // Organizers book a whole time slot for the group, so sign-ups have a deadline
+      groupBooking: { deadline: 'February 1, 2027', slotSize: 26 },
       goodFor: ['kids', 'seniors', 'adventurous'],
     },
     {
@@ -507,7 +511,7 @@ const DATA = {
       steps: [
         { when: 'Morning',   what: 'Ride the {heberRailroad} through the valley.' },
         { when: 'Lunch',     what: 'Grab lunch in Heber City.' },
-        { when: 'Afternoon', what: 'Thrill-seekers can fly over Rainbow Bay with {zipline} or hit the trails on {atv}. Want something calmer? Take a warm swim at {crater} in Midway, just next door (reserve ahead).' },
+        { when: 'Afternoon', what: 'Thrill-seekers can fly over Rainbow Bay with {zipline} or hit the trails on {atv}. Want something calmer? Take a warm swim at {crater} in Midway, just next door (sign up by Feb 1 so we can book a group time slot).' },
       ],
     },
     {
@@ -533,7 +537,7 @@ const DATA = {
       goodFor: ['adventurous', 'kids'],
       steps: [
         { when: 'Morning', what: 'Zip lines and the Aerial Park ropes course at {zipline} over Rainbow Bay. Book ahead.' },
-        { when: 'Midday', what: 'Warm swim or snorkel at {crater} in Midway, about 15 minutes away (reservations required).' },
+        { when: 'Midday', what: 'Warm swim or snorkel at {crater} in Midway, about 15 minutes away. Sign up by Feb 1 so we can book a group time slot.' },
         { when: 'Late lunch', what: 'Eat on the drive back toward Ogden. Park City and Morgan are both along the way.' },
         { when: 'Evening', what: 'Finish with a soak at {crystal} in Honeyville. Check their evening hours before you go.' },
       ],
@@ -568,8 +572,18 @@ const DATA = {
   ],
 
   /* ---------- Shirts ---------- */
-  shirtIntro: 'Every reunion we make matching shirts. They\'re how we spot each other across the lake, and they show up in every group photo! Add each person in your family and their size so we can place one order for everybody. Shirts will be handed out at Lake Day (Tuesday 6/15) at Willard Bay, where we\'ll take our group photos.',
+  shirtIntro: 'Every reunion we make matching shirts. They\'re how we spot each other wherever we go! Add each person in your family and their size so we can place one order for everybody. We\'ll hand out the shirts on Tuesday (6/15).',
   shirtDeadline: 'TBD',
+
+  /* ---------- Merch shop (separate from the reunion shirts) ----------
+     When the shop is ready, paste its link as the url. While the url
+     contains "REPLACE", the section says "Coming soon". */
+  merch: {
+    title: 'Reunion Merch Shop',
+    text: 'We\'re working on a reunion merch shop. Check back here soon!',
+    note: 'The merch shop is separate from the reunion shirts. Everyone still gets their reunion shirt. Just add your sizes above.',
+    url: 'REPLACE_WITH_MERCH_SHOP_LINK',
+  },
 
   /* ---------- Room Finder: choices for "Arrived" ---------- */
   roomArrivalDays: ['Sun 6/13', 'Mon 6/14', 'Tue 6/15', 'Wed 6/16', 'Thu 6/17'],
@@ -998,10 +1012,10 @@ function renderHotel() {
         <h3>Group Room Block</h3>
         <dl>
           <dt>Standard king:</dt><dd>${esc(h.roomPrice)}</dd>
-          <dt>Group rate code:</dt><dd>${esc(h.rateCode)}</dd>
+          <dt>Book under:</dt><dd><strong>${esc(h.blockName)}</strong></dd>
           <dt>Book by:</dt><dd>${esc(h.bookBy)}</dd>
         </dl>
-        <p class="rate-note">${esc(h.roomPriceNote)}</p>
+        <p class="rate-note">${esc(h.roomPriceNote)} ${esc(h.bookByNote)}</p>
         ${bookBtn}
       </div>
     </div>
@@ -1118,6 +1132,7 @@ function renderActivities() {
           <h3>${extLink(a.name, a.url)}</h3>
           <span class="drive-badge">🚗 Drive from hotel: ${esc(a.driveText)}</span>
           <p>${linkify(a.desc)}</p>
+          ${a.groupBooking ? `<p class="group-booking">📅 <strong>Sign up by ${esc(a.groupBooking.deadline)}.</strong> We're reserving whole time slots for our group (${a.groupBooking.slotSize} people per slot, and more slots if needed), so we need final numbers by then.</p>` : ''}
           <ul class="tags" aria-label="Good for">
             <li class="tags-label">Good for:</li>
             ${a.goodFor.map((t) => `<li class="tag tag-${t}">${tagLabels[t] || esc(t)}</li>`).join('')}
@@ -1205,6 +1220,7 @@ function renderBoard() {
     return `
       <div class="board-card">
         <h4><span>${esc(a.emoji)} ${esc(a.name)}</span><span class="board-count" title="People going">${plural(people, 'person').replace('persons', 'people')}</span></h4>
+        ${a.groupBooking ? `<p class="board-slots">📅 Sign up by ${esc(a.groupBooking.deadline)} · ${people ? `${plural(Math.ceil(people / a.groupBooking.slotSize), 'time slot')} needed (${a.groupBooking.slotSize} per slot)` : `${a.groupBooking.slotSize} people per time slot`}</p>` : ''}
         ${list}
       </div>`;
   }).join('');
@@ -1566,6 +1582,22 @@ function renderRooms() {
     </table>`;
 }
 
+// Merch shop (coming soon until DATA.merch.url is filled in)
+function renderMerch() {
+  const m = DATA.merch;
+  const soon = isPlaceholder(m.url);
+  $('#merch-content').innerHTML = `
+    <div class="card merch-card">
+      <span class="merch-icon" aria-hidden="true">🛍️</span>
+      <div>
+        <h3 class="card-title">${esc(m.title)} ${soon ? '<span class="soon-badge">Coming soon</span>' : ''}</h3>
+        <p>${esc(m.text)}</p>
+        <p class="merch-note">${esc(m.note)}</p>
+        ${soon ? '' : `<a class="btn btn-gold btn-lg" href="${esc(m.url)}" target="_blank" rel="noopener">Visit the Merch Shop</a>`}
+      </div>
+    </div>`;
+}
+
 // 8. Photos
 function renderPhotos() {
   $('#album-grid').innerHTML = DATA.albums.map((a) => {
@@ -1785,6 +1817,7 @@ async function init() {
   renderActivities();
   renderDayPlans();
   renderSignupCheckboxes();
+  renderMerch();
   renderPhotos();
   renderContacts();
 
