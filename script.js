@@ -255,11 +255,10 @@ const DATA = {
     roomPriceNote: 'That\'s for a standard king room. Family rooms and suites may cost more.',
     // Name to give the hotel when you call or book, so you get the group rate
     blockName: 'Hector Reunion',
-    bookBy:   '5:00 PM Utah time, Friday, June 4, 2027',
+    bookBy:   '5:00 PM Utah time, Friday, May 28, 2027',
     bookByNote: 'After that, rooms are no longer held for our group.',
-    // Replace with the group-booking link from the hotel when you have it.
-    // While it contains "REPLACE", the button shows "Booking link coming soon".
-    bookingUrl: 'REPLACE_WITH_GROUP_BOOKING_LINK',
+    // The hotel's group-booking link for the Hector Reunion room block.
+    bookingUrl: 'https://www.bestwestern.com/en_US/book/hotel-rooms.45050.html?groupId=S78IS8R1',
     homeBase: {
       title: 'Our Home Base: The Back Garden',
       text:  "We've reserved the hotel's back garden area as our family home base all week. Stop by any time to visit, and join us every evening around the fire.",
