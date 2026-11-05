@@ -175,12 +175,12 @@ const SHARED_SHEETS = {
   // Movie Night suggestions (Wednesday). Added by add-movie-form.gs.
   // The suggestion box shows "opening soon" until formUrl is filled in.
   movies: {
-    formUrl: 'PASTE_MOVIE_FORM_URL',
-    csvUrl:  'PASTE_MOVIE_CSV_URL',
+    formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScZ6_xGkiKrrq9eDFAiGnYgyC7FzJi4rvgSmUFf3r4XxRKboQ/formResponse',
+    csvUrl:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vR2qzGoaNurJeNBn2dnPQsCZDMZ_QBfGmqkEZfDPnU5SKFeuFduNYDXfhObxkTm9YDsQYl8x-wVQVfi/pub?gid=855137056&single=true&output=csv',
     // Same order as the questions in the form.
     fields: {
-      family: 'PASTE_ENTRY_ID',
-      movie:  'PASTE_ENTRY_ID',
+      family: 'entry.1357442179',
+      movie:  'entry.177604335',
     },
   },
 
